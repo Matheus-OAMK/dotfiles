@@ -1,7 +1,3 @@
-
-
-
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -124,3 +120,12 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 alias vi='nvim'
+
+
+# Start ssh-agent if not already running
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    eval $(ssh-agent -s)
+fi
+
+# Automatically add your SSH key (replace ~/.ssh/id_rsa with your key path)
+ssh-add ~/.ssh/github > /dev/null 2>&1
