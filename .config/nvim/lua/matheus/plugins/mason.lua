@@ -25,6 +25,9 @@ return {
 					"tailwindcss",
 					"jsonls",
 					"rust_analyzer",
+					"pyright",
+					"solidity_ls",
+					"solidity_ls_nomicfoundation", -- Working better with linting
 				},
 			})
 
@@ -36,6 +39,7 @@ return {
 					-- "black", -- python formatter
 					-- "pylint", -- python linter
 					"eslint_d", -- javascript/typescript linter
+					"solhint", -- solidity linter
 				},
 			})
 		end,

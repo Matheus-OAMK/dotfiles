@@ -19,6 +19,7 @@ return {
 				markdown = { "prettierd", "prettier" },
 				css = { "prettierd", "prettier" },
 				scss = { "prettierd", "prettier" },
+				solidity = { "prettierd", "prettier" },
 			},
 
 			format_on_save = {
