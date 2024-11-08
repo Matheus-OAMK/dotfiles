@@ -9,17 +9,28 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
-				python = { "isort", "black" },
-				javascript = { "prettierd", "prettier" },
-				javascriptreact = { "prettierd", "prettier" },
-				typescript = { "prettierd", "prettier" },
-				typescriptreact = { "prettierd", "prettier" },
-				json = { "prettierd", "prettier" },
-				yaml = { "prettierd", "prettier" },
-				markdown = { "prettierd", "prettier" },
-				css = { "prettierd", "prettier" },
-				scss = { "prettierd", "prettier" },
-				solidity = { "prettierd", "prettier" },
+				python = { "isort", "black", stop_after_first = true },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+				typescript = { "prettierd", "prettier", stop_after_first = true },
+				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+				json = { "prettierd", "prettier", stop_after_first = true },
+				yaml = { "prettierd", "prettier", stop_after_first = true },
+				markdown = { "prettierd", "prettier", stop_after_first = true },
+				css = { "prettierd", "prettier", stop_after_first = true },
+				scss = { "prettierd", "prettier", stop_after_first = true },
+				solidity = { "forge_fmt", "prettierd", "prettier", stop_after_first = true },
+			},
+
+			formatters = {
+				forge_fmt = {
+					command = "forge",
+					args = { "fmt", "$FILENAME" },
+					stdin = false,
+					condition = function()
+						return vim.fn.executable("forge") == 1
+					end,
+				},
 			},
 
 			format_on_save = {

@@ -15,6 +15,9 @@ return {
 					".git",
 					".DS_STORE",
 				},
+				always_show = {
+					".env",
+				},
 			},
 		},
 		window = {
