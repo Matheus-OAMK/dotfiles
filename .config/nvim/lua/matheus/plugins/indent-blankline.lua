@@ -3,8 +3,8 @@ return {
 		"lukas-reineke/indent-blankline.nvim",
 		-- Enable lukas-reineke/indent-blankline.nvim
 		-- See :help ibl
+		version = "3.8.2",
 		main = "ibl",
-    commit = "65e20ab94a26d0e14acac5049b8641336819dfc7",
 		opts = {
 			indent = {
 				char = "┆",
