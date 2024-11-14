@@ -125,7 +125,19 @@ alias vi='nvim'
 # Start ssh-agent if not already running
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     eval $(ssh-agent -s)
+    # Save the agent info for reuse in other sessions
+    echo "export SSH_AGENT_PID=${SSH_AGENT_PID}" > ~/.ssh/agent_env
+    echo "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" >> ~/.ssh/agent_env
+fi
+
+# Load ssh-agent settings if available
+if [ -f ~/.ssh/agent_env ]; then
+    source ~/.ssh/agent_env
 fi
 
 # Automatically add your SSH key (replace ~/.ssh/id_rsa with your key path)
 ssh-add ~/.ssh/github > /dev/null 2>&1
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
