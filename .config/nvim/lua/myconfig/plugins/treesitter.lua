@@ -10,6 +10,7 @@ return { -- Highlight, edit, and navigate code
 			"lua",
 			"luadoc",
 			"markdown",
+			"markdown_inline",
 			"vim",
 			"vimdoc",
 			"javascript",
@@ -17,6 +18,7 @@ return { -- Highlight, edit, and navigate code
 			"toml",
 			"ron",
 			"solidity",
+			"tsx",
 		},
 		-- Autoinstall languages that are not installed
 		auto_install = true,

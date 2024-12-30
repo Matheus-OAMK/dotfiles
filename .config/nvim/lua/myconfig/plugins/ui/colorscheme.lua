@@ -1,5 +1,3 @@
--- /nvim/lua/matheus/plugins/colorscheme.lua
-
 -- return {
 --   { "catppuccin/nvim",
 --     name = "catppuccin",
@@ -19,12 +17,10 @@
 --   }
 -- }
 
-return { -- You can easily change to a different colorscheme.
-	-- Change the name of the colorscheme plugin below, and then
-	-- change the command in the config to whatever the name of that colorscheme is.
-	--
+return {
 	-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
 	"folke/tokyonight.nvim",
+	lazy = false, -- Load before everything else
 	priority = 1000,
 	opts = {
 		transparent = true,
@@ -34,17 +30,13 @@ return { -- You can easily change to a different colorscheme.
 			sidebars = "transparent",
 		},
 		on_colors = function(colors)
-			colors.bg_visual = colors.blue7
-			colors.fg_gutter = colors.comment
-			-- colors.bg_highlight = "#2E3C5A"
+			colors.bg_visual = colors.blue7 -- Color highlight when in telescope and other windows
+			colors.fg_gutter = colors.comment -- numbers in the gutter and also scope lines
 		end,
 	},
 	config = function(_, opts)
 		require("tokyonight").setup(opts)
 
 		vim.cmd.colorscheme("tokyonight")
-
-		-- You can configure highlights by doing something like:
-		-- vim.cmd.hi 'Comment gui=none'
 	end,
 }

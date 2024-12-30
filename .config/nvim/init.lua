@@ -1,1 +1,1 @@
-require("matheus")
+require("myconfig")
