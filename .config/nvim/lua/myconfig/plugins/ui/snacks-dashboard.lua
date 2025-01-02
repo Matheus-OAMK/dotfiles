@@ -76,7 +76,7 @@ return {
 				{
 					section = "keys",
 					gap = 1,
-					padding = 5,
+					padding = 2,
 				},
 
 				{
