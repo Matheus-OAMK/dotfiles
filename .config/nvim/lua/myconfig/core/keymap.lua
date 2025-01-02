@@ -39,6 +39,12 @@ vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current bu
 -- Dont save copy when replacing
 vim.keymap.set("n", "x", '"_x')
 
+-- Clear search highlight with <Esc>, and keep default behaviour
+vim.keymap.set("n", "<Esc>", function()
+	vim.cmd("nohlsearch") -- Clear search highlights
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+end, { silent = true })
+
 -- Commenting
 vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
