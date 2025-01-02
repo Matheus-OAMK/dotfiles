@@ -29,16 +29,11 @@ return {
 		priority = 10000,
 		lazy = false,
 		opts = {},
-		config = function(_, opts)
-			-- local notify = vim.notify
-			require("snacks").setup(opts)
-		end,
 	},
 
 	{
 		"snacks.nvim",
 		opts = {
-			indent = { enabled = false },
 			input = { enabled = true },
 			notifier = { enabled = true },
 			scope = { enabled = true },
@@ -46,10 +41,10 @@ return {
 			statuscolumn = { enabled = false }, -- we set this in set.lua
 			words = { enabled = true },
 		},
-	   -- stylua: ignore
-	   keys = {
-	     { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
-	     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-	   },
+		-- stylua: ignore
+		keys = {
+		  { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+		  { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+		},
 	},
 }
