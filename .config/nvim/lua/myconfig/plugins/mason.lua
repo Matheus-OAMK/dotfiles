@@ -26,6 +26,8 @@ return {
 					"jsonls",
 					"rust_analyzer",
 					"pyright",
+					"ruff",
+					-- "pylsp",
 					"solidity_ls",
 					"solidity_ls_nomicfoundation", -- Working better with linting
 				},
@@ -35,6 +37,7 @@ return {
 				ensure_installed = {
 					"prettier", -- prettier formatter
 					"stylua", -- lua formatter
+					"ruff",
 					-- "isort", -- python formatter
 					-- "black", -- python formatter
 					-- "pylint", -- python linter

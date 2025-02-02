@@ -7,8 +7,6 @@ return {
 	},
 	---
 	opts = function()
-		local diagnostic_icons = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-
 		---@class PluginLspOpts
 		local ret = {
 			-- options for vim.diagnostic.config()
@@ -19,27 +17,19 @@ return {
 				virtual_text = {
 					spacing = 4,
 					source = "if_many",
-					prefix = "●",
 					-- this will set set the prefix to a function that returns the diagnostics icon based on the severity
 					-- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-					-- prefix = "icons",
+					prefix = "icons",
 				},
 				severity_sort = true,
 				signs = {
 					text = {
-						[vim.diagnostic.severity.ERROR] = diagnostic_icons.Error,
-						[vim.diagnostic.severity.WARN] = diagnostic_icons.Warn,
-						[vim.diagnostic.severity.HINT] = diagnostic_icons.Hint,
-						[vim.diagnostic.severity.INFO] = diagnostic_icons.Info,
+						[vim.diagnostic.severity.ERROR] = MyConfig.icons.diagnostics.Error,
+						[vim.diagnostic.severity.WARN] = MyConfig.icons.diagnostics.Warn,
+						[vim.diagnostic.severity.HINT] = MyConfig.icons.diagnostics.Hint,
+						[vim.diagnostic.severity.INFO] = MyConfig.icons.diagnostics.Info,
 					},
 				},
-			},
-			-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-			-- Be aware that you also will need to properly configure your LSP server to
-			-- provide the inlay hints.
-			inlay_hints = {
-				enabled = true,
-				exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
 			},
 			-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
 			-- Be aware that you also will need to properly configure your LSP server to
@@ -100,7 +90,7 @@ return {
 
 				-- Opens a popup that displays documentation about the word under your cursor
 				--  See `:help K` for why this keymap.
-				map("K", vim.lsp.buf.hover, "Hover Documentation")
+				-- map("K", vim.lsp.buf.hover, "Hover Documentation")
 
 				-- WARN: This is not Goto Definition, this is Goto Declaration.
 				--  For example, in C this would take you to the header.
@@ -134,6 +124,14 @@ return {
 						end,
 					})
 				end
+
+				-- The following code creates a keymap to toggle inlay hints in your
+				-- code, if the language server you are using supports them
+				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+					map("<leader>th", function()
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+					end, "[T]oggle Inlay [H]ints")
+				end
 			end,
 		})
 
@@ -148,23 +146,83 @@ return {
 			end
 		end
 
+		-- Virtual text
+		if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
+			opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
+				or function(diagnostic)
+					local icons = MyConfig.icons.diagnostics
+					for d, icon in pairs(icons) do
+						if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+							return icon
+						end
+					end
+				end
+		end
+
 		vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		-- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+		-- Check for cmp or blink and extend capabilities
+		local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+		local has_blink, blink = pcall(require, "blink.cmp")
 
-		local servers_to_skip = {
-			rust_analyzer = true, -- Using rustaceanvim
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+		capabilities = vim.tbl_deep_extend(
+			"force",
+			has_cmp and cmp_nvim_lsp.default_capabilities() or {},
+			has_blink and blink.get_lsp_capabilities() or {}
+		)
+
+		-- Configure servers
+		local servers = {
+			-- Lua
+			lua_ls = {
+				settings = {
+					Lua = {
+						hint = {
+							enable = true, -- Enable inlay hints for Lua
+							setType = true, -- Show type annotations
+						},
+						diagnostics = {
+							globals = { "vim" }, -- Recognize `vim` as a global
+						},
+						workspace = {
+							library = vim.api.nvim_get_runtime_file("", true),
+							checkThirdParty = false,
+						},
+					},
+				},
+			},
+
+			-- Pyright
+			pyright = {
+				settings = {
+					python = {
+						analysis = {
+							typeCheckingMode = "off",
+							diagnosticMode = "off",
+						},
+					},
+				},
+			},
 		}
 
+		-- A list of servers to skip
+		local servers_to_skip = {
+			rust_analyzer = true, -- Using rustaceanvim
+			-- ruff = true,
+		}
+
+		-- Mason LSP Setup
 		require("mason-lspconfig").setup_handlers({
 			function(server_name)
 				if servers_to_skip[server_name] then
 					return true
 				end
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
+
+				local server = servers[server_name] or {}
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				lspconfig[server_name].setup(server)
 			end,
 		})
 	end,
