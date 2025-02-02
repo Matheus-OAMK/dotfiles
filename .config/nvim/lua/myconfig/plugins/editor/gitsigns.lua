@@ -16,7 +16,7 @@ return {
 					end
 
 					-- Navigation
-					map("n", "]c", function()
+					map("n", "]h", function()
 						if vim.wo.diff then
 							vim.cmd.normal({ "]c", bang = true })
 						else
@@ -24,7 +24,7 @@ return {
 						end
 					end, { desc = "Jump to the next hunk" })
 
-					map("n", "[c", function()
+					map("n", "[h", function()
 						if vim.wo.diff then
 							vim.cmd.normal({ "[c", bang = true })
 						else
@@ -32,28 +32,35 @@ return {
 						end
 					end, { desc = "Jump to the previous hunk" })
 
+					map("n", "]H", function()
+						gitsigns.nav_hunk("last")
+					end, { desc = "Jump to last Hunk" })
+					map("n", "[H", function()
+						gitsigns.nav_hunk("first")
+					end, { desc = "Jump to first Hunk" })
+
 					-- Actions
-					map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Stage current hunk" })
-					map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "Reset current hunk" })
-					map("v", "<leader>hs", function()
+					map("n", "<leader>ghs", gitsigns.stage_hunk, { desc = "Stage current hunk" })
+					map("n", "<leader>ghr", gitsigns.reset_hunk, { desc = "Reset current hunk" })
+					map("v", "<leader>ghs", function()
 						gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 					end, { desc = "Stage selected hunk" })
-					map("v", "<leader>hr", function()
+					map("v", "<leader>ghr", function()
 						gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 					end, { desc = "Reset selected hunk" })
-					map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "Stage entire buffer" })
-					map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "Undo last staged hunk" })
-					map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "Reset entire buffer" })
-					map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Preview current hunk" })
-					map("n", "<leader>hb", function()
+					map("n", "<leader>ghS", gitsigns.stage_buffer, { desc = "Stage entire buffer" })
+					map("n", "<leader>ghu", gitsigns.undo_stage_hunk, { desc = "Undo last staged hunk" })
+					map("n", "<leader>ghR", gitsigns.reset_buffer, { desc = "Reset entire buffer" })
+					map("n", "<leader>ghp", gitsigns.preview_hunk, { desc = "Preview current hunk" })
+					map("n", "<leader>ghb", function()
 						gitsigns.blame_line({ full = true })
 					end, { desc = "Show full blame for line" })
-					map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle current line blame" })
-					map("n", "<leader>hd", gitsigns.diffthis, { desc = "Show diff of current file" })
-					map("n", "<leader>hD", function()
+					map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "Toggle current line blame" })
+					map("n", "<leader>ghd", gitsigns.diffthis, { desc = "Show diff of current file" })
+					map("n", "<leader>ghD", function()
 						gitsigns.diffthis("~")
 					end, { desc = "Show diff against previous commit" })
-					map("n", "<leader>td", gitsigns.toggle_deleted, { desc = "Toggle deleted lines" })
+					map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "Toggle deleted lines" })
 
 					-- Text object
 					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk as text object" })
