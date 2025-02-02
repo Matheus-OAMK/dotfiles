@@ -13,6 +13,7 @@ vim.opt.relativenumber = true
 
 -- Enable mouse
 vim.opt.mouse = "a"
+vim.opt.mousemoveevent = true
 
 -- Sync clipboard with OS
 vim.opt.clipboard = "unnamedplus"
@@ -47,9 +48,26 @@ vim.opt.undofile = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = "yes"
 
--- enable smart indent
+-- enable smart
 vim.opt.breakindent = true
 
 -- disable netrw [recommended for nvim-tree]
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Enable smooth scrolling
+vim.opt.smoothscroll = true
+
+vim.opt.foldlevel = 99 -- Large number so folds are open by default
+vim.opt.foldexpr = "v:lua.MyConfig.foldexpr()" -- Function to fold using treesitter
+vim.opt.foldmethod = "expr" -- Change fold method to expression
+vim.opt.foldtext = ""
+
+vim.opt.fillchars = {
+	foldopen = "",
+	foldclose = "",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
+}
