@@ -17,3 +17,12 @@ vim.api.nvim_create_autocmd("TextChanged", {
 		vim.fn.setpos(".", save_cursor)
 	end,
 })
+
+-- Exist insert mode with esc in REPL
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("TerminalMappings", { clear = true }),
+	callback = function()
+		-- Make Esc behave like <C-\><C-n> in terminal buffers
+		vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { buffer = true, silent = true })
+	end,
+})
