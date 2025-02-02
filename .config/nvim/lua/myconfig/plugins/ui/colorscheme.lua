@@ -33,6 +33,9 @@ return {
 			colors.bg_visual = colors.blue7 -- Color highlight when in telescope and other windows
 			colors.fg_gutter = colors.comment -- numbers in the gutter and also scope lines
 		end,
+		on_highlights = function(hl, c)
+			hl.TabLineFill = { bg = "none" }
+		end,
 	},
 	config = function(_, opts)
 		require("tokyonight").setup(opts)
