@@ -4,7 +4,6 @@ return {
 
 		dependencies = {
 			{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-			{ "nvim-lua/plenary.nvim" }, -- for curl, log and async functions
 		},
 
 		opts = {
@@ -49,18 +48,19 @@ return {
 				mode = { "n", "v" },
 			},
 		},
-		-- config = function(_, opts)
-		-- 	local chat = require("CopilotChat")
-		--
-		-- 	vim.api.nvim_create_autocmd("BufEnter", {
-		-- 		pattern = "copilot-chat",
-		-- 		callback = function()
-		-- 			vim.opt_local.relativenumber = false
-		-- 			vim.opt_local.number = false
-		-- 		end,
-		-- 	})
-		--
-		-- 	chat.setup(opts)
-		-- end,
+
+		config = function(_, opts)
+			local chat = require("CopilotChat")
+
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = "copilot-chat",
+				callback = function()
+					vim.opt_local.relativenumber = false
+					vim.opt_local.number = false
+				end,
+			})
+
+			chat.setup(opts)
+		end,
 	},
 }

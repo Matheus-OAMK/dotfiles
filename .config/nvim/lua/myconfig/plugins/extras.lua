@@ -38,7 +38,7 @@ return {
 			notifier = { enabled = true },
 			scope = { enabled = true },
 			scroll = { enabled = false },
-			statuscolumn = { enabled = false }, -- we set this in set.lua
+			statuscolumn = { enabled = true },
 			words = { enabled = true },
 		},
 		-- stylua: ignore
