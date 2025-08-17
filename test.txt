@@ -1,4 +1,13 @@
-ssh-keygen -t ed25519
-paste public in github
-eval $(ssh-agent)
-ssh-add path_to_file_private
+# PRE INSTALL PACMAN
+base-devel linux-headers dkms git nano gvim make cmake wget curl
+nvidia-utils nvidia-settings nvidia-open lib32-nvidia-utils
+
+# Login
+
+# Pacman
+zsh
+zsh-completions
+fzf
+vlc
+vlc-plugins-all
+neovim
