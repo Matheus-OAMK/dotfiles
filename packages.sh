@@ -64,6 +64,8 @@ PACMAN_PACKAGES=(
   noto-fonts
   noto-fonts-emoji
 
+  kwalletmanager
+
 )
 
 # List of AUR packages (via yay)
