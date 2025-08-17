@@ -36,6 +36,7 @@ fi
 # List of packages to install via pacman (official repos)
 PACMAN_PACKAGES=(
   base-devel
+  unzip
   wget
   curl
   nano
