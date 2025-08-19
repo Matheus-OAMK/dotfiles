@@ -67,6 +67,11 @@ PACMAN_PACKAGES=(
 
   kwalletmanager
 
+  zsh-autosuggestions     # Au to suggestions for shell commands based on history
+  zsh-completions         # Commands auto completions
+  zsh-syntax-highlighting # highlights commands
+  exa                     # ls alternative with colorss
+  bat                     # Alternative to cat, with syntax highlighting
 )
 
 # List of AUR packages (via yay)
