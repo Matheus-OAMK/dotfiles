@@ -6,16 +6,19 @@ cat ~/.local/state/caelestia/sequences.txt 2> /dev/null
 fastfetch
 
 
-# --- History ---
+# --- Options ---
+# History
 HISTFILE=~/.histfile
 HISTSIZE=5000
 SAVEHIST=5000
-
 setopt histverify
 setopt sharehistory  # Share command history between sessions
 setopt histignoredups     # Don’t record duplicate commands
 setopt histreduceblanks   # Remove superfluous blanks
-unsetopt beep
+
+# Others
+unsetopt beep # No beeping
+setopt auto_cd # Just type dir name to cd
 
 
 # --- Shell Prompt ---
