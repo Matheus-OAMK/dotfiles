@@ -1,0 +1,393 @@
+# version: 1.0.0
+
+add_newline = false
+continuation_prompt = "[▸▹ ](dimmed white)"
+
+format = """($container$fill$git_metrics\n)$cmd_duration\
+$hostname\
+$localip\
+$shlvl\
+$shell\
+$env_var\
+$jobs\
+$sudo\
+$username\
+$directory\
+$character"""
+
+right_format = """
+$singularity\
+$kubernetes\
+$vcsh\
+$fossil_branch\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$pijul_channel\
+$docker_context\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$conda\
+$meson\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$crystal\
+$custom\
+$status\
+$os\
+$battery\
+"""
+
+[fill]
+symbol = ' '
+
+[character]
+format = "$symbol "
+success_symbol = "[~>](bold italic bright-yellow)"
+error_symbol = "[~>](italic purple)"
+vimcmd_symbol = "[■](italic dimmed green)"
+# not supported in zsh
+vimcmd_replace_one_symbol = "◌"
+vimcmd_replace_symbol = "□"
+vimcmd_visual_symbol = "▼"
+
+[env_var.VIMSHELL]
+format = "[$env_value]($style)"
+style = 'green italic'
+
+[sudo]
+format = "[$symbol]($style)"
+style = "bold italic bright-purple"
+symbol = "⋈┈"
+disabled = false
+
+[username]
+style_user = "bright-yellow bold italic"
+style_root = "purple bold italic"
+format = "[⭘ $user]($style) "
+disabled = false
+show_always = false
+
+[directory]
+home_symbol = "⌂"
+truncation_length = 2
+truncation_symbol = ""
+truncate_to_repo=true
+read_only = " 🔒"
+use_os_path_sep = true
+style = "italic blue"
+format = '[$path]($style)[$read_only]($read_only_style) '
+
+[cmd_duration]
+min_time = 0
+format = "[◄ $duration ](italic white)"
+
+[jobs]
+format = "[$symbol$number]($style) "
+style = "white"
+symbol = "[▶](blue italic)"
+
+[localip]
+ssh_only = true
+format = " ◯[$localipv4](bold magenta)"
+disabled = false
+
+[battery]
+format = "[ $percentage $symbol]($style)"
+full_symbol = "█"
+charging_symbol = "[↑](italic bold green)"
+discharging_symbol = "↓"
+unknown_symbol = "░"
+empty_symbol = "▃"
+
+[[battery.display]]
+threshold = 20
+style = "italic bold red"
+
+[[battery.display]]
+threshold = 60
+style = "italic dimmed bright-purple"
+
+[[battery.display]]
+threshold = 70
+style = "italic dimmed yellow"
+
+[git_branch]
+format = " [$branch(:$remote_branch) ]($style)"
+symbol = "[](bold italic bright-purple)"
+style = "bold green"
+truncation_symbol = "⋯"
+truncation_length = 11
+only_attached = true
+
+[git_metrics]
+format = '([▴$added]($added_style))([▿$deleted]($deleted_style))'
+added_style = 'italic dimmed green'
+deleted_style = 'italic dimmed red'
+ignore_submodules = true
+disabled = false
+
+[git_status]
+style = "bold italic bright-blue"
+format = "([$all_status$ahead_behind ]($style))"
+conflicted = "[‼](italic bright-magenta)"
+ahead      = "[↑](italic green)"
+behind     = "[↓](italic red)"
+diverged   = "[⇅](italic bright-magenta)"
+untracked  = "[◼](italic bright-yellow)"
+stashed    = "[◆](italic cyan)"
+modified   = "[✎](italic blue)"
+staged     = "[✚](italic bright-green)"
+renamed    = "[➜](italic bright-blue)"
+deleted    = "[✘](italic red)"
+
+[deno]
+format = " [${symbol}${version}]($style)"
+version_format = "${raw}"
+symbol = " "
+style = "green bold"
+
+[lua]
+format = " [${symbol}${version}]($style)"
+version_format = "${raw}"
+symbol = " "
+style = "bold bright-yellow"
+
+[nodejs]
+format = " [${symbol}$version]($style)"
+version_format = "${raw}"
+style = "bold bright-green"
+symbol = " "
+detect_files = ["package-lock.json", "yarn.lock"]
+detect_folders = ["node_modules"]
+detect_extensions = []
+
+[python]
+format = " [${symbol}${version}]($style)"
+symbol = " "
+version_format = "${raw}"
+style = "bold bright-yellow"
+
+[ruby]
+format = " [${symbol}${version}]($style)"
+symbol = " "
+version_format = "${raw}"
+style = "bold red"
+
+[rust]
+format = " [$symbol$version]($style)"
+symbol = " "
+version_format = "${raw}"
+style = "bold red"
+
+[package]
+format = " [pkg](italic dimmed) [$symbol$version]($style)"
+version_format = "${raw}"
+symbol = "◨ "
+style = "dimmed yellow italic bold"
+
+[swift]
+format = " [${symbol}${version}]($style)"
+symbol = " "
+style = "bold bright-red"
+version_format = "${raw}"
+
+[aws]
+disabled = true
+format = " [aws](italic) [$symbol $profile $region]($style)"
+style = "bold blue"
+symbol = " "
+
+[buf]
+symbol = "■ "
+format = " [buf](italic) [$symbol $version $buf_version]($style)"
+
+[c]
+symbol = " "
+format = " [$symbol($version(-$name))]($style)"
+
+[conda]
+symbol = "◯ "
+format = " [$symbol$environment]($style)"
+
+[dart]
+symbol = "◁◅ "
+format = " [$symbol($version )]($style)"
+
+[docker_context]
+symbol = " "
+format = " [$symbol$context]($style)"
+
+[elixir]
+symbol = "△ "
+format = " [$symbol $version OTP $otp_version ]($style)"
+
+[elm]
+symbol = "◩ "
+format = " [$symbol($version )]($style)"
+
+[golang]
+symbol = " "
+format = " [$symbol($version )]($style)"
+
+[haskell]
+symbol = " "
+format = " [$symbol($version )]($style)"
+
+[java]
+symbol = " "
+format = " [${symbol}(${version} )]($style)"
+style = "bold orange"
+
+[memory_usage]
+symbol = "▪▫▪ "
+format = " mem [${ram}( ${swap})]($style)"
+
+[bun]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[gcloud]
+symbol = "  "
+
+[git_commit]
+tag_symbol = '  '
+
+[guix_shell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[meson]
+symbol = "󰔷 "
+
+[ocaml]
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[pijul_channel]
+symbol = " "
+
+[pixi]
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[pulumi]
+symbol = " "
