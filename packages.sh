@@ -59,6 +59,7 @@ PACMAN_PACKAGES=(
   pavucontrol
   vlc
   vlc-plugins-all
+  hyprpolkitagent
 
   kitty
   nerd-fonts
