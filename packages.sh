@@ -39,16 +39,18 @@ PACMAN_PACKAGES=(
   unzip
   wget
   curl
-  nano
   make
   cmake
   less
   git
-  tree
+  nano
   neovim
   tmux
   ripgrep
   fzf
+  fd
+  tree
+  rsync
   gwenview
   ark
   flatpak
@@ -71,7 +73,7 @@ PACMAN_PACKAGES=(
   zsh-autosuggestions     # Au to suggestions for shell commands based on history
   zsh-completions         # Commands auto completions
   zsh-syntax-highlighting # highlights commands
-  exa                     # ls alternative with colorss
+  eza                     # ls alternative with colorss
   bat                     # Alternative to cat, with syntax highlighting
 )
 
