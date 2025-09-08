@@ -61,13 +61,12 @@ PACMAN_PACKAGES=(
   pavucontrol
   vlc
   vlc-plugins-all
+  hyprpolkitagent
 
   kitty
   nerd-fonts
   noto-fonts
   noto-fonts-emoji
-
-  kwalletmanager
 
   zsh-autosuggestions     # Au to suggestions for shell commands based on history
   zsh-completions         # Commands auto completions
