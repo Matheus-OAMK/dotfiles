@@ -79,6 +79,7 @@ PACMAN_PACKAGES=(
 # List of AUR packages (via yay)
 AUR_PACKAGES=(
   brave-bin
+  sddm-silent-theme
 )
 
 # Function to install pacman package if not installed
