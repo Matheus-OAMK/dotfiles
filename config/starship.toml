@@ -27,7 +27,6 @@ $git_status\
 $hg_branch\
 $pijul_channel\
 $docker_context\
-$package\
 $c\
 $cmake\
 $cobol\
@@ -211,9 +210,10 @@ detect_folders = ["node_modules"]
 detect_extensions = []
 
 [python]
-format = " [${symbol}${version}]($style)"
+format = ' [${symbol}${version}( \($virtualenv\))]($style)'
 symbol = " "
 version_format = "${raw}"
+python_binary = [".venv/bin/python", "python", "python3", "python2"]
 style = "bold bright-yellow"
 
 [ruby]
