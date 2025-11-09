@@ -1,7 +1,11 @@
-local opts = { noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+-- Disable s and S
+vim.keymap.set({ "n", "v", "o" }, "s", "<Nop>", opts)
+vim.keymap.set({ "n", "v", "o" }, "S", "<Nop>", opts)
 
 -- Enable moving of multiple lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Allows to move multiple highlighted lines" })
@@ -14,11 +18,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Center cursor after vertical m
 -- Center cursor when going to previous or next search
 vim.keymap.set("n", "n", "nzzzv", { desc = "Center cursor after searching" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Center cursor after searching" })
-
--- Resize window using <ctrl> arrow keys
-vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" }) vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- When indenting in visual mode maintain visual
 vim.keymap.set("v", "<", "<gv", opts)
@@ -37,7 +36,6 @@ end, { silent = true })
 vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
-
 -- Window management
 vim.keymap.set("n", "<leader>Sv", "<C-w>v", { desc = "Split window vertically" })
 vim.keymap.set("n", "<leader>Sh", "<C-w>s", { desc = "Split window horizontally" })
@@ -48,3 +46,7 @@ vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window He
 vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+
