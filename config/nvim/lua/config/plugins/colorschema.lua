@@ -24,9 +24,22 @@ return {
       require("catppuccin").setup({
         flavour = "macchiato", -- latte, frappe, macchiato, auto
         transparent_background = true,
+        lsp_styles = {
+          underlines = {
+            errors = { "undercurl" },
+            hints = { "undercurl" },
+            warnings = { "undercurl" },
+            information = { "undercurl" },
+          },
+        },
         float = {
           transparent = true,
           solid = false
+        },
+
+        integrations = {
+          which_key = true,
+          fzf = true,
         },
       })
 

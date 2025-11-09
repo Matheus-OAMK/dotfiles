@@ -37,6 +37,9 @@ return {
           separator = true, -- use a "true" to enable the default, or set your own character
           text_align = "left",
         },
+        {
+          filetype = "snacks_layout_box",
+        },
       },
     },
   },
