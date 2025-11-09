@@ -52,3 +52,14 @@ vim.opt.signcolumn = "yes"
 -- Faster updatetime
 vim.opt.updatetime = 100
 
+vim.opt.foldtext = ""
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+
+vim.opt.foldlevel = 99 -- Large number so folds are open by default

@@ -1,48 +1,60 @@
-return { -- Highlight, edit, and navigate code
-	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
-	opts = {
-		-- Autoinstall languages that are not installed
-		auto_install = true,
-		ensure_installed = {
-      "c",
-      "rust",
-      "python",
-      "go",
-      "javascript",
-      "jsdoc",
-      "typescript",
-      "tsx",
-      "bash",
-			"html",
-      "css",
-			"lua",
-			"luadoc",
+return {
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  branch = "main",
+  lazy = false,
+  opts = {
+    ensure_installed = {
       "vim",
       "vimdoc",
-			"markdown",
-			"markdown_inline",
-			"toml",
+      "lua",
+      "luadoc",
+      "bash",
+      "diff",
+      "html",
+      "css",
+      "markdown",
+      "markdown_inline",
+      "rust",
+      "python",
+      "c",
+      "javascript",
+      "typescript",
+      "tsx",
+      "toml",
       "yaml",
       "json",
-      "dockerfile",
-      "gitignore",
-      "gitcommit",
-      "diff",
+      "jsonc",
       "sql",
-      "tmux",
-		},
-		highlight = {
-			enable = true,
-			-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-			--  If you are experiencing weird indenting issues, add the language to
-			--  the list of additional_vim_regex_highlighting and disabled languages for indent.
-			additional_vim_regex_highlighting = false
-		},
-		indent = { enable = true  },
-	},
-	config = function(_, opts)
-		require("nvim-treesitter.install").prefer_git = true
-		require("nvim-treesitter.configs").setup(opts)
-	end,
+    },
+    -- Autoinstall languages that are not installed
+    auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+    folds = { enable = true },
+  },
+  config = function(_, opts)
+    local TS = require("nvim-treesitter")
+
+    TS.setup(opts)
+
+    TS.install(opts.ensure_installed)
+    vim.treesitter.language.register("bash", "zsh")
+
+
+    -- auto-start highlights & indentation
+    vim.api.nvim_create_autocmd("FileType", {
+      desc = "User: enable treesitter highlighting",
+      callback = function(ctx)
+        local bufnr = ctx.buf
+        if not pcall(vim.treesitter.start, bufnr) then return end
+
+        vim.wo.foldmethod = 'expr'
+        vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+      end,
+    })
+
+  end,
 }
