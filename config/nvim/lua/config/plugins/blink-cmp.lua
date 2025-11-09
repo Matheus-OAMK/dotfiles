@@ -1,12 +1,34 @@
 return {
   {
+    "github/copilot.vim",
+    cmd = "Copilot",
+    event = "BufWinEnter",
+    init = function()
+      vim.g.copilot_no_maps = true
+    end,
+    config = function()
+      -- Block the normal Copilot suggestions
+      vim.api.nvim_create_augroup("github_copilot", { clear = true })
+      vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
+        group = "github_copilot",
+        callback = function(args)
+          vim.fn["copilot#On" .. args.event]()
+        end,
+      })
+      vim.fn["copilot#OnFileType"]()
+    end,
+  },
+
+  {
     'saghen/blink.cmp',
     version = '1.*',
+    event = { "InsertEnter", "CmdlineEnter" },
     -- optional: provides snippets for the snippet source
     dependencies = {
       'rafamadriz/friendly-snippets',
       "onsails/lspkind.nvim", -- vs code like pictogram
-      "nvim-mini/mini.icons", -- Optional, for file icons
+      "nvim-mini/mini.icons", -- Optional, for file icoons
+      "fang2hou/blink-copilot",
     },
 
     opts = {
@@ -29,6 +51,10 @@ return {
                     if dev_icon then
                       icon = dev_icon
                     end
+
+                  elseif ctx.kind == "Copilot" then
+                    icon = ctx.kind_icon -- keep the default icon for Copilot
+
                   else
                     icon = require("lspkind").symbolic(ctx.kind, {
                       mode = "symbol",
@@ -52,12 +78,21 @@ return {
                   return hl
                 end,
               }
-            }
+            },
+            treesitter = { "lsp" },
           }
         }
       },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
+          },
+        },
       },
 
       fuzzy = { implementation = "rust" }
