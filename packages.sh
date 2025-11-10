@@ -73,6 +73,8 @@ PACMAN_PACKAGES=(
   zsh-syntax-highlighting # highlights commands
   eza                     # ls alternative with colorss
   bat                     # Alternative to cat, with syntax highlighting
+
+  tree-sitter-cli         # Syntax highlighting for neovim
 )
 
 # List of AUR packages (via yay)
