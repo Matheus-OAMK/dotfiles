@@ -1,10 +1,9 @@
-# --- Colors / Custom Sequences ---
-cat ~/.local/state/caelestia/sequences.txt 2> /dev/null
-
-
 # --- Greeter ---
-fastfetch
-
+if [[ $- == *i* ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
+    # --- Colors / Custom Sequences ---
+    cat ~/.local/state/caelestia/sequences.txt 2> /dev/null
+    fastfetch
+fi
 
 # --- Options ---
 # History
@@ -87,7 +86,7 @@ bindkey "^K" history-search-backward
 # --- Completion ---
 autoload -Uz compinit
 compinit
-zstyle :compinstall filename '/home/matheus/.zshrc'
+zstyle :compinstall filename "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc"
 
 
 # --- Plugins ---
@@ -114,3 +113,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+# Set up fzf key bindings and fuzzy completion
+export FZF_DEFAULT_OPTS="--layout=reverse --border=bold --border=rounded --margin=3% --color=dark"
+source <(fzf --zsh)
