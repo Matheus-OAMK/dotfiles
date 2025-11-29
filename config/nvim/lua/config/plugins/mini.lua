@@ -40,4 +40,8 @@ return {
 			end
 		end,
 	},
+
+  -- Better surround objects
+	{ 'nvim-mini/mini.ai', version = false },
+
 }
