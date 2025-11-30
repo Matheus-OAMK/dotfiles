@@ -44,7 +44,7 @@ return {
           -- "rust_analyzer",
           -- "pyright",
           "basedpyright",
-          -- "prettier", -- prettier formatter
+          "prettierd", -- prettier formatter
           "ruff",
           -- "eslint_d", -- javascript/typescript linter
           -- "solhint", -- solidity linter
