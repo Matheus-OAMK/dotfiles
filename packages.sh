@@ -75,6 +75,10 @@ PACMAN_PACKAGES=(
   bat                     # Alternative to cat, with syntax highlighting
 
   tree-sitter-cli         # Syntax highlighting for neovim
+
+  docker
+  docker-compose
+  lazydocker
 )
 
 # List of AUR packages (via yay)
