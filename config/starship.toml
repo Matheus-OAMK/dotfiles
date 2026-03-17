@@ -90,9 +90,9 @@ symbol = ' '
 
 [character]
 format = "$symbol "
-success_symbol = "[~>](bold italic bright-yellow)"
-error_symbol = "[~>](italic purple)"
-vimcmd_symbol = "[■](italic dimmed green)"
+success_symbol = "[~>](purple)"
+error_symbol = "[~>](red)"
+vimcmd_symbol = "[■](dimmed purple)"
 # not supported in zsh
 vimcmd_replace_one_symbol = "◌"
 vimcmd_replace_symbol = "□"
@@ -105,7 +105,7 @@ style = 'green italic'
 [sudo]
 format = "[$symbol]($style)"
 style = "bold italic bright-purple"
-symbol = "⋈┈"
+symbol = "⋈┈ "
 disabled = false
 
 [username]
@@ -136,7 +136,7 @@ symbol = "[▶](blue italic)"
 
 [localip]
 ssh_only = true
-format = " ◯[$localipv4](bold magenta)"
+format = " ◯[$localipv4](bold purple)"
 disabled = false
 
 [battery]
@@ -161,8 +161,8 @@ style = "italic dimmed yellow"
 
 [git_branch]
 format = " [$symbol$branch(:$remote_branch) ]($style)"
-symbol = "[ ](bold italic bright-purple)"
-style = "bold purple"
+symbol = "[ ](italic green)"
+style = "italic green"
 truncation_symbol = "⋯"
 truncation_length = 11
 only_attached = true
@@ -177,11 +177,11 @@ disabled = false
 [git_status]
 style = "bold italic bright-blue"
 format = "([$all_status$ahead_behind ]($style))"
-conflicted = "[‼ ](italic bright-magenta)"
+conflicted = "[‼ ](italic bright-red)"
 ahead      = "[⇡ ](italic green)"
 behind     = "[⇣ ](italic red)"
-diverged   = "[⇕ ](italic bright-magenta)"
-untracked  = "[? ](italic bright-yellow)"
+diverged   = "[⇕ ](italic bright-purple)"
+untracked  = "[? ](italic yellow)"
 stashed    = "[≡ ](italic cyan)"
 modified   = "[✱ ](italic blue)"
 staged     = "[✚ ](italic bright-green)"

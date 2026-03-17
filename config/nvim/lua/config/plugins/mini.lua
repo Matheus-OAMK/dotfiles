@@ -1,23 +1,20 @@
 return {
-  {
-    'nvim-mini/mini.surround',
-    version = false ,
-    event = { "BufReadPre", "BufNewFile" },
-    keys = {
-      -- Normal mode
-      { "sa", desc = "Add Surround", mode = { "n", "v" } },
-      { "sd", desc = "Delete Surround", mode = "n" },
-      { "sf", desc = "Find Surround", mode = "n" },
-      { "sF", desc = "Find Surround Left", mode = "n" },
-      { "sh", desc = "Highlight Surround", mode = "n" },
-      { "sr", desc = "Replace Surround", mode = "n" },
+	{
+		"nvim-mini/mini.surround",
+		version = false,
+		event = { "BufReadPre", "BufNewFile" },
+		keys = {
+			-- Normal mode
+			{ "sa", desc = "Add Surround", mode = { "n", "v" } },
+			{ "sd", desc = "Delete Surround", mode = "n" },
+			{ "sf", desc = "Find Surround", mode = "n" },
+			{ "sF", desc = "Find Surround Left", mode = "n" },
+			{ "sh", desc = "Highlight Surround", mode = "n" },
+			{ "sr", desc = "Replace Surround", mode = "n" },
+		},
 
-    },
-
-    opts = {}, -- default config
-  },
-
-
+		opts = {}, -- default config
+	},
 
 	-- icons
 	{
@@ -41,7 +38,9 @@ return {
 		end,
 	},
 
-  -- Better surround objects
-	{ 'nvim-mini/mini.ai', version = false },
-
+	-- "test" "more"
+	-- Better surround objects
+	{ "nvim-mini/mini.ai", version = false, opts = {} },
+	-- Auto pairs for brackets, quotes etc
+	{ "nvim-mini/mini.pairs", version = false, opts = {} },
 }

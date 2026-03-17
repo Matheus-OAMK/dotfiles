@@ -83,6 +83,10 @@ bindkey '^[[3;5~' kill-word # Ctrl+Delete → delete next word
 bindkey "^J" history-search-forward
 bindkey "^K" history-search-backward
 
+## Sessionizer 
+bindkey -s '^f' $'tmux-sessionizer\r'
+bindkey -s '\eh' $'tmux-sessionizer -s 0\r'
+
 # --- Completion ---
 autoload -Uz compinit
 compinit
@@ -113,6 +117,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# Set up fzf key bindings and fuzzy completion
-export FZF_DEFAULT_OPTS="--layout=reverse --border=bold --border=rounded --margin=3% --color=dark"
 source <(fzf --zsh)

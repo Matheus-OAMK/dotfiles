@@ -52,6 +52,8 @@ return {
 			},
 
 			picker = {
+				enabled = false,
+				ui_select = false,
 				sources = {
 					explorer = {
 						hidden = true,
