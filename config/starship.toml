@@ -90,9 +90,9 @@ symbol = ' '
 
 [character]
 format = "$symbol "
-success_symbol = "[~>](purple)"
+success_symbol = "[~>](green)"
 error_symbol = "[~>](red)"
-vimcmd_symbol = "[■](dimmed purple)"
+vimcmd_symbol = "[■](dimmed green)"
 # not supported in zsh
 vimcmd_replace_one_symbol = "◌"
 vimcmd_replace_symbol = "□"

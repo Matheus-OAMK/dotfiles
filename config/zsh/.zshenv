@@ -9,3 +9,4 @@ export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="kitty"
+
