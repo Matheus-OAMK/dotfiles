@@ -1,0 +1,128 @@
+@import "$HOME/.config/wlogout/colors.css";
+
+window {
+    background-color: transparent;
+    font-family: Rubik;
+    font-size: ${fntSize}px;
+}
+
+button {
+    color: @on-background;
+    background-color: @background;
+    outline-style: none;
+    border: none;
+    border-width: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20%;
+    border-radius: 0px;
+    box-shadow: none;
+    text-shadow: none;
+    animation: gradient_f 20s ease-in infinite;
+}
+
+button:focus {
+    background-color: @primary;
+    color: @on_primary;
+    background-size: 30%;
+}
+
+button:hover {
+    background-color: @primary;
+    color: transparent;
+    background-size: 40%;
+    border-radius: ${active_rad}px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+}
+
+button:hover#lock {
+    border-radius: ${active_rad}px;
+    margin : ${hvr}px 0px ${hvr}px ${mgn}px;
+}
+
+button:hover#logout {
+    border-radius: ${active_rad}px;
+    margin : ${hvr}px 0px ${hvr}px 0px;
+}
+
+button:hover#suspend {
+    border-radius: ${active_rad}px;
+    margin : ${hvr}px 0px ${hvr}px 0px;
+}
+
+button:hover#shutdown {
+    border-radius: ${active_rad}px;
+    margin : ${hvr}px 0px ${hvr}px 0px;
+}
+
+button:hover#hibernate {
+    border-radius: ${active_rad}px;
+    margin : ${hvr}px 0px ${hvr}px 0px;
+}
+
+button:hover#reboot {
+    border-radius: ${active_rad}px;
+    margin : ${hvr}px ${mgn}px ${hvr}px 0px;
+}
+
+#lock {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/lock_white.png")); 
+    border-radius: ${button_rad}px 0px 0px ${button_rad}px;
+    margin : ${mgn}px 0px ${mgn}px ${mgn}px;
+}
+
+#lock:hover, #lock:focus {
+    background-image: image(url("$HOME/.config/wlogout/icons_2/lock_black.png")); 
+}
+
+#logout {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/logout_white.png"));
+    border-radius: 0px 0px 0px 0px;
+    margin : ${mgn}px 0px ${mgn}px 0px;
+}
+
+
+#logout:hover, #logout:focus {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/logout_black.png"));
+}
+
+#suspend {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/suspend_white.png"));
+    border-radius: 0px 0px 0px 0px;
+    margin : ${mgn}px 0px ${mgn}px 0px;
+}
+
+#suspend:hover, #suspend:focus {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/suspend_black.png"));
+}
+
+#shutdown {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/shutdown_white.png"));
+    border-radius: 0px 0px 0px 0px;
+    margin : ${mgn}px 0px ${mgn}px 0px;
+}
+
+#shutdown:hover, #shutdown:focus {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/shutdown_black.png"));
+}
+
+#hibernate {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/hibernate_white.png"));
+    border-radius: 0px 0px 0px 0px;
+    margin : ${mgn}px 0px ${mgn}px 0px;
+}
+
+#hibernate:hover, #hibernate:focus {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/hibernate_black.png"));
+}
+
+#reboot {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/reboot_white.png"));
+    border-radius: 0px ${button_rad}px ${button_rad}px 0px;
+    margin : ${mgn}px ${mgn}px ${mgn}px 0px;
+}
+
+#reboot:hover, #reboot:focus {
+    background-image: image(url("$HOME/.config/wlogout/icons_3/reboot_black.png"));
+}
