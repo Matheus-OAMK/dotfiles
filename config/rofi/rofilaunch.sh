@@ -9,7 +9,7 @@ if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
   hypr_width="$(hyprctl -j getoption general:border_size | jq '.int')"
 fi
 
-rofiStyle="${rofiStyle:-1}"
+rofiStyle="${rofiStyle:-11}"
 if [[ $rofiStyle =~ ^[0-9]+$ ]]; then
   rofi_config="style_${rofiStyle:-1}"
 else
