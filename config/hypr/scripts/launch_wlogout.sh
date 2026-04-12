@@ -7,11 +7,15 @@ if pgrep -x "wlogout" >/dev/null; then
   exit 0
 fi
 
+if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+  hypr_border="$(hyprctl -j getoption decoration:rounding | jq '.int')"
+fi
+
 confDir="${HOME}/.config"
 wLayout="${confDir}/wlogout/layout_1"
 wlTmplt="${confDir}/wlogout/style.css"
 wlColms=6
-hypr_border=10
+hypr_border="${hypr_border:-10}"
 
 x_mon=$(hyprctl -j monitors | jq '.[] | select(.focused == true) | .width')
 y_mon=$(hyprctl -j monitors | jq '.[] | select(.focused == true) | .height')

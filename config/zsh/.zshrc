@@ -102,6 +102,12 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 alias vil="NVIM_APPNAME=nvim-lazy nvim"
 alias vi="nvim"
 
+# Function
+d() {
+  cd ~/repos/dotfiles || return
+  vi .
+}
+
 if command -v exa >/dev/null 2>&1; then
     alias ls="exa --icons"
     alias la="exa -a --icons"

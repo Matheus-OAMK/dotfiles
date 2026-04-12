@@ -1,0 +1,49 @@
+{
+  "communication": {
+    "discord": {
+      "enabled": true,
+      "match": [{ "class": "vesktop" }],
+      "spawn": ["vesktop"],
+      "move": true
+    }
+  },
+  "email": {
+    "betterbird": {
+      "enabled": true,
+      "match": [{ "class": "betterbird" }],
+      "spawn": ["betterbird"],
+      "move": true
+    }
+  },
+  "music": {
+    "spotify": {
+      "enabled": true,
+      "match": [
+        { "class": "Spotify" },
+        { "initialTitle": "Spotify" },
+        { "initialTitle": "Spotify Free" }
+      ],
+      "spawn": ["spicetify", "watch", "-s"],
+      "move": true
+    },
+    "tidal": {
+      "enabled": true,
+      "match": [{ "class": "tidal-hifi" }, { "title": "TIDAL" }],
+      "spawn": ["tidal-hifi"],
+      "move": true
+    }
+  },
+  "sysmon": {
+    "btop": {
+      "enabled": true,
+      "match": [
+        {
+          "class": "btop",
+          "title": "btop",
+          "workspace": { "name": "special:sysmon" }
+        }
+      ],
+      "spawn": ["kitty", "--class", "btop", "--title", "btop", "btop"]
+    }
+  }
+}
