@@ -13,7 +13,7 @@ configuration {
     show-icons:                  false;
 }
 
-@theme "~/.cache/hyde/wallbash/wallbash.rasi"
+@theme "~/.cache/wallpaper/wallbash/wallbash.rasi"
 @theme "~/.config/rofi/theme.rasi"
 
 
@@ -44,7 +44,7 @@ wallbox {
     expand:                      false;
     orientation:                 horizontal;
     background-color:            transparent;
-    background-image:            url("~/.cache/hyde/wall.blur", width);
+    background-image:            url("~/.cache/wallpaper/wall.blur", width);
     children:                    [ "wallframe" , "inputbar" ];
 }
 wallframe {
@@ -53,7 +53,7 @@ wallframe {
     padding:                     0em;
     expand:                      false;
     background-color:            @main-bg;
-    background-image:            url("~/.cache/hyde/wall.quad", width);
+    background-image:            url("~/.cache/wallpaper/wall.quad", width);
 }
 
 
