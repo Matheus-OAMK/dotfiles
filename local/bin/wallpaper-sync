@@ -41,12 +41,17 @@ quad_path="$cache_dir/wall.quad"
 
 mkdir -p "$cache_dir"
 
-magick "${image}[0]" -strip -resize 1000 -gravity center -extent 1000 -quality 90 "$thmb_path"
-magick "${image}[0]" -strip -scale 10% -blur 0x3 -resize 100% "$blur_path"
-magick "${image}[0]" -strip -thumbnail 500x500^ -gravity center -extent 500x500 "$sqre_path"
-magick "$sqre_path" \( -size 500x500 xc:white -fill "rgba(0,0,0,0.7)" -draw "polygon 400,500 500,500 500,0 450,0" -fill black -draw "polygon 500,500 500,0 450,500" \) -alpha off -compose CopyOpacity -composite "$quad_path"
-
 matugen image "$image"
+
+magick "${image}[0]" -strip \
+  \( +clone -resize 1000 -gravity center -extent 1000 -quality 90 -write "$thmb_path" +delete \) \
+  \( +clone -scale 10% -blur 0x3 -resize 100% -write "$blur_path" +delete \) \
+  \( +clone -thumbnail 500x500^ -gravity center -extent 500x500 \
+  \( +clone -write "$sqre_path" +delete \) \
+  \( -size 500x500 xc:white -fill "rgba(0,0,0,0.7)" -draw "polygon 400,500 500,500 500,0 450,0" -fill black -draw "polygon 500,500 500,0 450,500" \) \
+  -alpha off -compose CopyOpacity -composite -write "$quad_path" +delete \
+  \) \
+  null:
 
 printf 'Generated %s\n' "$thmb_path"
 printf 'Generated %s\n' "$blur_path"
