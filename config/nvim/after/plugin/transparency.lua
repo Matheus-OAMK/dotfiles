@@ -1,0 +1,161 @@
+-- -- Make highlight groups transparent while preserving their other attributes.
+-- local function make_transparent(name)
+--   local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
+--   if ok then
+--     hl.bg = nil
+--     vim.api.nvim_set_hl(0, name, hl)
+--   end
+-- end
+--
+-- local groups = {
+--   -- Core editor
+--   "Normal",
+--   "NormalFloat",
+--   "FloatBorder",
+--   "Pmenu",
+--   "Terminal",
+--   "EndOfBuffer",
+--   "FoldColumn",
+--   "Folded",
+--   "SignColumn",
+--   "LineNr",
+--   "CursorLineNr",
+--   "NormalNC",
+--   "StatusLine",
+--   "StatusLineNC",
+--   "TabLine",
+--   "TabLineFill",
+--   "TabLineSel",
+--
+--   -- Which-key
+--   "WhichKeyFloat",
+--
+--   -- Telescope
+--   "TelescopeBorder",
+--   "TelescopeNormal",
+--   "TelescopePromptBorder",
+--   "TelescopePromptTitle",
+--
+--   -- Neo-tree
+--   "NeoTreeNormal",
+--   "NeoTreeNormalNC",
+--   "NeoTreeVertSplit",
+--   "NeoTreeWinSeparator",
+--   "NeoTreeEndOfBuffer",
+--
+--   -- NvimTree
+--   "NvimTreeNormal",
+--   "NvimTreeVertSplit",
+--   "NvimTreeEndOfBuffer",
+--
+--   -- Notify
+--   "NotifyINFOBody",
+--   "NotifyERRORBody",
+--   "NotifyWARNBody",
+--   "NotifyTRACEBody",
+--   "NotifyDEBUGBody",
+--   "NotifyINFOTitle",
+--   "NotifyERRORTitle",
+--   "NotifyWARNTitle",
+--   "NotifyTRACETitle",
+--   "NotifyDEBUGTitle",
+--   "NotifyINFOBorder",
+--   "NotifyERRORBorder",
+--   "NotifyWARNBorder",
+--   "NotifyTRACEBorder",
+--   "NotifyDEBUGBorder",
+--
+--   -- Diagnostics
+--   "DiagnosticVirtualTextError",
+--   "DiagnosticVirtualTextWarn",
+--   "DiagnosticVirtualTextInfo",
+--   "DiagnosticVirtualTextHint",
+--   "DiagnosticFloatingError",
+--   "DiagnosticFloatingWarn",
+--   "DiagnosticFloatingInfo",
+--   "DiagnosticFloatingHint",
+--   "DiagnosticSignError",
+--   "DiagnosticSignWarn",
+--   "DiagnosticSignInfo",
+--   "DiagnosticSignHint",
+--
+--   -- Lualine: only keep the filename center section transparent.
+--   "lualine_c_normal",
+--   "lualine_c_insert",
+--   "lualine_c_visual",
+--   "lualine_c_replace",
+--   "lualine_c_command",
+--   "lualine_c_inactive",
+--   "lualine_transitional_lualine_b_normal_to_lualine_c_normal",
+--   "lualine_transitional_lualine_c_normal_to_lualine_x_normal",
+--   "lualine_transitional_lualine_b_insert_to_lualine_c_insert",
+--   "lualine_transitional_lualine_c_insert_to_lualine_x_insert",
+--   "lualine_transitional_lualine_b_visual_to_lualine_c_visual",
+--   "lualine_transitional_lualine_c_visual_to_lualine_x_visual",
+--   "lualine_transitional_lualine_b_replace_to_lualine_c_replace",
+--   "lualine_transitional_lualine_c_replace_to_lualine_x_replace",
+--   "lualine_transitional_lualine_b_command_to_lualine_c_command",
+--   "lualine_transitional_lualine_c_command_to_lualine_x_command",
+--   "lualine_transitional_lualine_b_inactive_to_lualine_c_inactive",
+--   "lualine_transitional_lualine_c_inactive_to_lualine_x_inactive",
+--
+--   -- Bufferline
+--   "BufferLineFill",
+--   "BufferLineBackground",
+--   "BufferLineBufferVisible",
+--   "BufferLineBufferSelected",
+--   "BufferLineTab",
+--   "BufferLineTabSelected",
+--   "BufferLineTabClose",
+--   "BufferLineCloseButton",
+--   "BufferLineCloseButtonVisible",
+--   "BufferLineCloseButtonSelected",
+--   "BufferLineDiagnostic",
+--   "BufferLineDiagnosticVisible",
+--   "BufferLineDiagnosticSelected",
+--   "BufferLineHint",
+--   "BufferLineHintVisible",
+--   "BufferLineHintSelected",
+--   "BufferLineInfo",
+--   "BufferLineInfoVisible",
+--   "BufferLineInfoSelected",
+--   "BufferLineWarning",
+--   "BufferLineWarningVisible",
+--   "BufferLineWarningSelected",
+--   "BufferLineError",
+--   "BufferLineErrorVisible",
+--   "BufferLineErrorSelected",
+--   "BufferLineSeparator",
+--   "BufferLineSeparatorVisible",
+--   "BufferLineSeparatorSelected",
+--   "BufferLineIndicatorSelected",
+--   "BufferLineModified",
+--   "BufferLineModifiedVisible",
+--   "BufferLineModifiedSelected",
+--   "BufferLineDuplicate",
+--   "BufferLineDuplicateVisible",
+--   "BufferLineDuplicateSelected",
+--   "BufferLineNumbers",
+--   "BufferLineNumbersVisible",
+--   "BufferLineNumbersSelected",
+--   "BufferLinePick",
+--   "BufferLinePickVisible",
+--   "BufferLinePickSelected",
+-- }
+--
+-- local function apply_transparency()
+--   for _, name in ipairs(groups) do
+--     make_transparent(name)
+--   end
+-- end
+--
+-- apply_transparency()
+--
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   callback = apply_transparency,
+-- })
+--
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "VeryLazy",
+--   callback = apply_transparency,
+-- })
