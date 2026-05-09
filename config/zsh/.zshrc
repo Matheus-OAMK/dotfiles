@@ -1,7 +1,5 @@
 # --- Greeter ---
 if [[ $- == *i* ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-    # --- Colors / Custom Sequences ---
-    cat ~/.local/state/caelestia/sequences.txt 2> /dev/null
     fastfetch
 fi
 
@@ -27,6 +25,7 @@ eval "$(starship init zsh)"
 
 
 # --- Keybindings ---
+export KEYTIMEOUT=10 # Timeout quicker
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -89,9 +88,13 @@ bindkey -s '\eh' $'tmux-sessionizer -s 0\r'
 
 # --- Completion ---
 autoload -Uz compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # case insensitive and partial completions
+zstyle ':completion:*' menu select # Select menu for completions
+eval "$(dircolors -b)" # Colors for completion menu
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # Colors for completion menu
 compinit
+_comp_options+=(globdots)
 zstyle :compinstall filename "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc"
-
 
 # --- Plugins ---
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh # Auto suggestions when typing commands (ghost text)
@@ -105,22 +108,24 @@ alias vi="nvim"
 # Function
 d() {
   cd ~/repos/dotfiles || return
-  vi .
+  vi +'lua Snacks.explorer({ focus = "input" })'
 }
 
 if command -v exa >/dev/null 2>&1; then
-    alias ls="exa --icons"
-    alias la="exa -a --icons"
-    alias lla="exa -la --icons"
-    alias lt="exa --tree --icons"
+    alias ls="eza --icons=auto"
+    alias la="eza -a --icons=auto"
+    alias lla="eza -la --icons=auto"
+    alias lt="eza --tree --icons=auto"
 fi
 
 alias cat=bat --paging=never --color=always
 
-# --- NVM ---
-export NVM_DIR="$XDG_DATA_HOME/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# --- FNM ---
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
 
 
 source <(fzf --zsh)
+
+. "$HOME/.local/share/../bin/env"
