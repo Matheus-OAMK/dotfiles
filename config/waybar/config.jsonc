@@ -10,6 +10,7 @@
   ],
   "modules-center": [
     "clock",
+    "custom/voxtype",
     "custom/screenrecording-indicator",
     "custom/idle-indicator",
     "custom/notification-silencing-indicator"
@@ -191,5 +192,16 @@
   "tray": {
     "icon-size": 18,
     "spacing": 17
+  },
+  "custom/voxtype": {
+    "exec": "omarchy-voxtype-status",
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "idle": "󰍬",
+      "recording": "󰍬",
+      "transcribing": "󰔟"
+    },
+    "tooltip": true
   }
 }

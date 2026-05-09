@@ -89,3 +89,19 @@ tooltip {
 /* #custom-notification-silencing-indicator.active { */
 /*   color: #a55555; */
 /* } */
+
+#custom-voxtype {
+  margin: 0 0 0 8px;
+}
+
+#custom-voxtype.idle {
+  opacity: 0.6;
+}
+
+#custom-voxtype.recording {
+  color: @error;
+}
+
+#custom-voxtype.transcribing {
+  color: @primary;
+}
