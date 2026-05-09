@@ -91,6 +91,12 @@ return {
 				enabled = true,
 			},
 
+			-- Lazygit
+			lazygit = {
+				enabled = true,
+				configure = false,
+			},
+
 			-- Terminal
 			terminal = {
 				win = {
@@ -99,8 +105,8 @@ return {
 						nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
 						nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
 						nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
-						hide_slash = { "<C-/>", "hide", desc = "Hide Terminal", mode = { "t", "n" } },
-						hide_underscore = { "<c-_>", "hide", desc = "which_key_ignore", mode = { "t", "n" } },
+						hide_slash = { "<C-/>", "hide", desc = "Hide Terminal", mode = "t" },
+						hide_underscore = { "<c-_>", "hide", desc = "which_key_ignore", mode = "t" },
 					},
 				},
 			},
@@ -188,7 +194,24 @@ return {
 				desc = "Prev Reference",
 				mode = { "n", "t" },
 			},
+			-- Lazygit
+			{
+				"<leader>gG",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazygit (cwd)",
+				mode = { "n" },
+			},
 			-- Terminal
+			{
+				"<leader>ft",
+				function()
+					Snacks.terminal(nil, { cwd = MyUtils.root.get() })
+				end,
+				desc = "Terminal (Root Dir)",
+				mode = { "n" },
+			},
 			{
 				"<leader>fT",
 				function()
@@ -200,9 +223,17 @@ return {
 			{
 				"<c-/>",
 				function()
-					Snacks.terminal(nil, { cwd = MyUtils.root.get() })
+					Snacks.terminal.focus(nil, { cwd = MyUtils.root.get() })
 				end,
 				desc = "Terminal (Root Dir)",
+				mode = { "n", "t" },
+			},
+			{
+				"<c-_>",
+				function()
+					Snacks.terminal.focus(nil, { cwd = MyUtils.root.get() })
+				end,
+				desc = "which_key_ignore",
 				mode = { "n", "t" },
 			},
 		},
