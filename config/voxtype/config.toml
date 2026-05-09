@@ -1,0 +1,138 @@
+# Voxtype Configuration
+#
+# Location: ~/.config/voxtype/config.toml
+# All settings can be overridden via CLI flags
+
+# State file for external integrations (Waybar, polybar, etc.)
+# Use "auto" for default location ($XDG_RUNTIME_DIR/voxtype/state),
+# a custom path, or "disabled" to turn off. The daemon writes state
+# ("idle", "recording", "transcribing") to this file whenever it changes.
+# Required for `voxtype record toggle` and `voxtype status` commands.
+state_file = "auto"
+
+[hotkey]
+enabled = false
+
+[audio]
+# Audio input device ("default" uses system default)
+# List devices with: pactl list sources short
+device = "default"
+
+# Sample rate in Hz (whisper expects 16000)
+sample_rate = 16000
+
+# Maximum recording duration in seconds (safety limit)
+max_duration_secs = 120
+
+[audio.feedback]
+# Enable audio feedback sounds (beeps when recording starts/stops)
+enabled = true
+#
+# Sound theme: "default", "subtle", "mechanical", or path to custom theme directory
+theme = "subtle"
+#
+# Volume level (0.0 to 1.0)
+volume = 0.1
+
+[whisper]
+# Transcription backend: "local" or "remote"
+# - local: Use whisper.cpp locally (default)
+# - remote: Send audio to a remote whisper.cpp server or OpenAI-compatible API
+# backend = "local"
+
+# Model to use for transcription (local backend)
+# Options: tiny, tiny.en, base, base.en, small, small.en, medium, medium.en, large-v3, large-v3-turbo
+# .en models are English-only but faster and more accurate for English
+# large-v3-turbo is faster than large-v3 with minimal accuracy loss (recommended for GPU)
+# Or provide absolute path to a custom .bin model file
+model = "large-v3-turbo"
+
+# Language for transcription
+# Options:
+#   - Single language: "en", "fr", "de", etc.
+#   - Auto-detect all: "auto"
+#   - Constrained auto-detect: ["en", "fr"] (detects from allowed set only)
+# The array form helps with multilingual users where Whisper might misdetect
+# the language, especially for short sentences.
+# See: https://github.com/openai/whisper#available-models-and-languages
+language = "en"
+
+# Translate non-English speech to English
+translate = false
+
+# Number of CPU threads for inference (omit for auto-detection)
+# threads = 4
+
+# GPU device index for Vulkan/CUDA backend selection.
+# On multi-GPU systems, whisper.cpp may default to the integrated GPU (index 0),
+# causing slower transcription. For different-vendor setups (e.g., Intel iGPU +
+# NVIDIA dGPU), use VOXTYPE_VULKAN_DEVICE=nvidia instead (simpler).
+# Use gpu_device for same-vendor GPUs or precise index control.
+# gpu_device = 1
+
+# Initial prompt to provide context for transcription
+# Use this to hint at terminology, proper nouns, or formatting conventions.
+# Example: "Technical discussion about Rust, TypeScript, and Kubernetes."
+# initial_prompt = ""
+
+
+[output]
+# Primary output mode: "type" or "clipboard"
+# - type: Simulates keyboard input at cursor position (requires ydotool)
+# - clipboard: Copies text to clipboard (requires wl-copy)
+mode = "type"
+
+# Fall back to clipboard if typing fails
+fallback_to_clipboard = true
+
+pre_type_delay_ms = 180  # 100ms delay before typing starts
+# Delay between typed characters in milliseconds
+type_delay_ms = 0
+
+# Automatically submit (send Enter key) after outputting transcribed text
+# Useful for chat applications, command lines, or forms where you want
+# to auto-submit after dictation
+# auto_submit = true
+
+# Convert newlines to Shift+Enter instead of regular Enter
+# Useful for applications where Enter submits (e.g., Cursor IDE, Slack, Discord)
+# shift_enter_newlines = false
+
+# Restore clipboard content after paste mode (default: false)
+# Saves clipboard before transcription, restores it after paste keystroke
+# Only applies to mode = "paste". Useful when you want to preserve your
+# existing clipboard content across dictation operations.
+# restore_clipboard = false
+
+# Delay after paste before restoring clipboard (milliseconds)
+# Allows time for the paste operation to complete (default: 200)
+# restore_clipboard_delay_ms = 200
+
+# Pre/post output hooks (optional)
+# Commands to run before and after typing output. Useful for compositor integration.
+pre_output_command = "hyprctl dispatch submap voxtype_suppress"
+post_output_command = "hyprctl dispatch submap reset"
+# See troubleshooting docs for the required Hyprland submap configuration.
+
+[output.notification]
+# Show notification when recording starts (hotkey pressed)
+on_recording_start = false
+
+# Show notification when recording stops (transcription beginning)
+on_recording_stop = false
+
+# Show notification with transcribed text after transcription completes
+on_transcription = false
+
+# [text]
+# Text processing options (word replacements, spoken punctuation)
+#
+# Enable spoken punctuation conversion (e.g., say "period" to get ".")
+# spoken_punctuation = false
+#
+# Custom word replacements (case-insensitive)
+# replacements = { "vox type" = "voxtype" }
+#
+# Smart auto-submit: say "submit" at the end of dictation to press Enter.
+# The word "submit" is stripped from the output text and Enter is pressed.
+# smart_auto_submit = false
