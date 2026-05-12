@@ -67,7 +67,8 @@
   "clock": {
     "format": "{:L%A %H:%M}",
     "format-alt": "{:L%d %B W%V %Y}",
-    "tooltip": false
+    "tooltip": false,
+    "on-click-right": "pkill -x waycal || waycal",
   },
   "network": {
     "format-icons": [
