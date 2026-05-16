@@ -96,7 +96,6 @@ PACKAGES_UI=(
   kitty     # Terminal
   tmux      # Terminal multiplexer
   fastfetch # Sys info on terminal
-  starship  # terminal prompt
 
   qt5-wayland
   qt6-wayland
@@ -185,6 +184,7 @@ PACKAGES_DEV=(
   zsh-syntax-highlighting # highlights commands
   eza                     # ls alternative with colorss
   bat                     # Alternative to cat, with syntax highlighting
+  starship                # terminal prompt
 
   # Terminal CLI tools
   fzf     # fuzzy finder
