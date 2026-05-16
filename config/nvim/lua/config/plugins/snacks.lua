@@ -203,6 +203,21 @@ return {
 				desc = "Lazygit (cwd)",
 				mode = { "n" },
 			},
+			-- Scratch
+			{
+				"<leader>.",
+				function()
+					Snacks.scratch()
+				end,
+				desc = "Toggle Scratch Buffer",
+			},
+			{
+				"<leader>Ss",
+				function()
+					Snacks.scratch.select()
+				end,
+				desc = "Select Scratch Buffer",
+			},
 			-- Terminal
 			{
 				"<leader>ft",

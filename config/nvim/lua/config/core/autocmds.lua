@@ -40,3 +40,44 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 })
+
+-- vim.option.confirm = true to be default to Cancel instead of Yes
+vim.api.nvim_create_user_command("QCancelDefault", function()
+	if not vim.bo.modified then
+		vim.cmd("quit")
+		return
+	end
+	local choice = vim.fn.confirm("Save changes before quitting?", "&Yes\n&No\n&Cancel", 3)
+	if choice == 1 then
+		vim.cmd("write")
+		vim.cmd("quit")
+	elseif choice == 2 then
+		vim.cmd("quit!")
+	end
+end, {})
+
+-- vim.option.confirm = true to be default to Cancel instead of Yes
+vim.api.nvim_create_user_command("QACancelDefault", function()
+	local has_modified = false
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.bo[buf].buflisted and vim.bo[buf].modified then
+			has_modified = true
+			break
+		end
+	end
+	if not has_modified then
+		vim.cmd("qa")
+		return
+	end
+	local choice = vim.fn.confirm("Save all changes before quitting?", "&Yes\n&No\n&Cancel", 3)
+	if choice == 1 then
+		vim.cmd("wall")
+		vim.cmd("qa")
+	elseif choice == 2 then
+		vim.cmd("qa!")
+	end
+end, {})
+
+-- vim.option.confirm = true to be default to Cancel instead of Yes
+vim.cmd([[cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'QCancelDefault' : 'q']])
+vim.cmd([[cnoreabbrev <expr> qa getcmdtype() == ':' && getcmdline() == 'qa' ? 'QACancelDefault' : 'qa']])

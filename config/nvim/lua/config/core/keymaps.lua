@@ -37,15 +37,24 @@ vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = 
 vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
 -- Window management
-vim.keymap.set("n", "<leader>Sv", "<C-w>v", { desc = "Split window vertically" })
-vim.keymap.set("n", "<leader>Sh", "<C-w>s", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<leader>Se", "<C-w>=", { desc = "Make splits equal size" })
-vim.keymap.set("n", "<leader>Sx", "<cmd>close<CR>", { desc = "Close current split" })
+vim.keymap.set("n", "<leader>S|", "<C-w>v", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>S-", "<C-w>s", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>S=", "<C-w>=", { desc = "Make splits equal size" })
+vim.keymap.set("n", "<leader>Sd", "<cmd>close<CR>", { desc = "Close current split" })
 -- Resize window using <ctrl> arrow keys
 vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+-- Buffer management
+vim.keymap.set("n", "<leader>bd", function()
+	Snacks.bufdelete()
+end, { desc = "Delete Buffer" })
+vim.keymap.set("n", "<leader>bo", function()
+	Snacks.bufdelete.other()
+end, { desc = "Delete Other Buffers" })
+vim.keymap.set("n", "<leader>bD", "<cmd>bd<cr>", { desc = "Delete Buffer and Window" })
 
+-- Diagnostics
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })

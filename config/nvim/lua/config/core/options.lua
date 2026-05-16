@@ -9,10 +9,10 @@ vim.opt.relativenumber = true
 vim.opt.undofile = true
 
 -- Tab width
-vim.opt.tabstop = 2       -- render a tab (\t) as 2 spaces
-vim.opt.shiftwidth = 2    -- indent width for >>, <<, and auto-indent
-vim.opt.softtabstop = 2   -- Tab key inserts 2 spaces in insert mode
-vim.opt.expandtab = true  -- convert tabs to spaces
+vim.opt.tabstop = 2 -- render a tab (\t) as 2 spaces
+vim.opt.shiftwidth = 2 -- indent width for >>, <<, and auto-indent
+vim.opt.softtabstop = 2 -- Tab key inserts 2 spaces in insert mode
+vim.opt.expandtab = true -- convert tabs to spaces
 -- Preserves indentation when inserting new lines
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -21,7 +21,6 @@ vim.opt.breakindent = true
 
 -- Better colours
 vim.opt.termguicolors = true
-
 
 -- Enable mouse
 vim.opt.mouse = "a"
@@ -52,14 +51,18 @@ vim.opt.signcolumn = "yes"
 -- Faster updatetime
 vim.opt.updatetime = 100
 
+-- Splits horizontal splits right and vertial splits below
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 vim.opt.foldtext = ""
 vim.opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
+	foldopen = "",
+	foldclose = "",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
 }
 
 vim.opt.foldlevel = 99 -- Large number so folds are open by default
