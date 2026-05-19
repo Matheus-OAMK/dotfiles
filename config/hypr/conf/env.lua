@@ -8,4 +8,4 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 -- GCR
-hl.env("SSH_AUTH_SOCK", "$XDG_RUNTIME_DIR/gcr/ssh")
+hl.env("SSH_AUTH_SOCK", os.getenv("$XDG_RUNTIME_DIR") .. "/gcr/ssh")
