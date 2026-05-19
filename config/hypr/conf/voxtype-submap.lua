@@ -12,6 +12,7 @@
 -- Recording submap - active during recording and transcription
 -- F12 cancels recording/transcription and returns to normal
 hl.define_submap("voxtype_recording", function()
+	hl.bind("SUPER + ALT + D", hl.dsp.exec_cmd("voxtype record toggle"))
 	hl.bind("F12", hl.dsp.exec_cmd("voxtype record cancel"))
 	hl.bind("F12", hl.dsp.submap("reset"))
 end)
