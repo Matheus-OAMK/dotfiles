@@ -1,0 +1,243 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+resolve_script_path() {
+  local source_path=${BASH_SOURCE[0]}
+
+  while [[ -L "$source_path" ]]; do
+    local source_dir
+    source_dir=$(cd -- "$(dirname -- "$source_path")" && pwd)
+    source_path=$(readlink -- "$source_path")
+    [[ "$source_path" != /* ]] && source_path="$source_dir/$source_path"
+  done
+
+  cd -- "$(dirname -- "$source_path")" && pwd
+}
+
+SCRIPT_DIR=$(resolve_script_path)
+DEFAULT_CONFIG_PATH="${SCRIPT_DIR}/config/default.json"
+USER_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/hyprws/config.json"
+
+notify_error() {
+  command -v notify-send >/dev/null 2>&1 || return 0
+  notify-send -u critical "hyprws" "$*"
+}
+
+usage() {
+  cat <<'EOF'
+Usage: hyprws <workspace>
+
+Toggle a Hyprland special workspace with optional app spawning and window moves.
+
+Examples:
+  hyprws music
+  hyprws communication
+  hyprws sysmon
+  hyprws specialws
+
+Config lookup order:
+  1. ./config/default.json
+  2. ~/.config/hyprws/config.json
+EOF
+}
+
+die() {
+  notify_error "$*"
+  printf 'hyprws: %s\n' "$*" >&2
+  exit 1
+}
+
+require_command() {
+  command -v "$1" >/dev/null 2>&1 || die "missing required command: $1"
+}
+
+hypr_dispatch() {
+  hyprctl dispatch "$@" >/dev/null
+}
+
+load_config() {
+  if [[ -f "$USER_CONFIG_PATH" ]]; then
+    jq -s '.[0] * .[1]' "$DEFAULT_CONFIG_PATH" "$USER_CONFIG_PATH"
+  else
+    jq '.' "$DEFAULT_CONFIG_PATH"
+  fi
+}
+
+resolve_active_special_workspace() {
+  hyprctl -j monitors | jq -r '
+    first(.[] | select(.focused == true) | .specialWorkspace.name // empty)
+    | sub("^special:"; "")
+    | if . == "" then "special" else . end
+  '
+}
+
+client_matches_rule() {
+  local client_json=$1
+  local rule_json=$2
+
+  # We use jq containment here so nested objects like workspace.name can be matched
+  # without hand-writing field checks in shell.
+  # `jq` normally exits 0 even when the filter evaluates to `false`, so use `-e`
+  # here to make the shell condition reflect the actual match result.
+  jq -e -n --argjson client "$client_json" --argjson rule "$rule_json" '
+    def rule_match($client; $rule):
+      if ($rule | type) == "object" then
+        ($rule | to_entries | all(rule_match($client[.key]; .value)))
+      elif ($rule | type) == "string" then
+        ($client | type) == "string" and ($client | contains($rule))
+      elif ($rule | type) == "array" then
+        ($client | type) == "array" and ($rule | all(. as $item | $client | index($item)))
+      else
+        $client == $rule
+      end;
+
+    rule_match($client; $rule)
+  ' >/dev/null
+}
+
+client_matches_any_rule() {
+  local client_json=$1
+  local matchers_json=$2
+
+  while IFS= read -r rule_json; do
+    if client_matches_rule "$client_json" "$rule_json"; then
+      return 0
+    fi
+  done < <(jq -c '.[]' <<<"$matchers_json")
+
+  return 1
+}
+
+move_matching_clients() {
+  local workspace=$1
+  local matchers_json=$2
+  local clients_json=$3
+
+  jq -c '.[]' <<<"$clients_json" | while IFS= read -r client_json; do
+    if client_matches_any_rule "$client_json" "$matchers_json"; then
+      local current_workspace
+      local address
+
+      current_workspace=$(jq -r '.workspace.name // ""' <<<"$client_json")
+      address=$(jq -r '.address' <<<"$client_json")
+
+      # Skip clients already in the target special workspace so repeated toggles stay cheap.
+      if [[ "$current_workspace" != "special:${workspace}" ]]; then
+        hypr_dispatch movetoworkspacesilent "special:${workspace},address:${address}"
+      fi
+    fi
+  done
+}
+
+spawn_client_if_missing() {
+  local workspace=$1
+  local matchers_json=$2
+  local spawn_json=$3
+  local clients_json=$4
+
+  local command_name
+  local command_string
+
+  while IFS= read -r client_json; do
+    if client_matches_any_rule "$client_json" "$matchers_json"; then
+      return 1
+    fi
+  done < <(jq -c '.[]' <<<"$clients_json")
+
+  command_name=$(jq -r '.[0] // empty' <<<"$spawn_json")
+  [[ -n "$command_name" ]] || return 1
+
+  if [[ "$command_name" != *.desktop ]] && ! command -v "$command_name" >/dev/null 2>&1; then
+    return 1
+  fi
+
+  command_string=$(jq -r 'map(@sh) | join(" ")' <<<"$spawn_json")
+
+  # The workspace prefix is interpreted by Hyprland so the spawned client lands in
+  # the target special workspace immediately.
+  hypr_dispatch exec "[workspace special:${workspace}] ${command_string}"
+  return 0
+}
+
+process_workspace_entry() {
+  local workspace=$1
+  local entry_json=$2
+  local clients_json=$3
+  local spawned=1
+
+  local enabled
+  local move
+  local matchers_json
+  local spawn_json
+
+  enabled=$(jq -r '
+    if has("enabled") then .enabled
+    elif has("enable") then .enable
+    else false
+    end
+  ' <<<"$entry_json")
+  [[ "$enabled" == "true" ]] || return 1
+
+  matchers_json=$(jq -c '.match // []' <<<"$entry_json")
+  spawn_json=$(jq -c '.spawn // .command // empty' <<<"$entry_json")
+  move=$(jq -r '.move // false' <<<"$entry_json")
+
+  if [[ "$spawn_json" != "" ]] && spawn_client_if_missing "$workspace" "$matchers_json" "$spawn_json" "$clients_json"; then
+    spawned=0
+  fi
+
+  if [[ "$move" == "true" ]]; then
+    move_matching_clients "$workspace" "$matchers_json" "$clients_json"
+  fi
+
+  return "$spawned"
+}
+
+toggle_workspace() {
+  local workspace=$1
+  local config_json=$2
+  local clients_json
+  local spawned_any=1
+
+  clients_json=$(hyprctl -j clients)
+
+  if jq -e --arg workspace "$workspace" '.[$workspace]' >/dev/null <<<"$config_json"; then
+    while IFS= read -r entry_json; do
+      if process_workspace_entry "$workspace" "$entry_json" "$clients_json"; then
+        spawned_any=0
+      fi
+    done < <(jq -c --arg workspace "$workspace" '.[$workspace] | to_entries[] | .value' <<<"$config_json")
+  fi
+
+  # This preserves the original Caelestia behavior: if we launched something new,
+  # we do not immediately toggle the workspace visibility again.
+  if (( spawned_any != 0 )); then
+    hypr_dispatch togglespecialworkspace "$workspace"
+  fi
+}
+
+main() {
+  local workspace=${1:-}
+  local config_json
+
+  if [[ $# -ne 1 ]] || [[ "$workspace" == "-h" ]] || [[ "$workspace" == "--help" ]]; then
+    usage
+    exit 0
+  fi
+
+  require_command hyprctl
+  require_command jq
+  [[ -f "$DEFAULT_CONFIG_PATH" ]] || die "default config not found at $DEFAULT_CONFIG_PATH"
+
+  config_json=$(load_config)
+
+  if [[ "$workspace" == "specialws" ]]; then
+    hypr_dispatch togglespecialworkspace "$(resolve_active_special_workspace)"
+    exit 0
+  fi
+
+  toggle_workspace "$workspace" "$config_json"
+}
+
+main "$@"
