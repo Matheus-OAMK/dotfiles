@@ -37,7 +37,7 @@ Examples:
   hyprws specialws
 
 Config lookup order:
-  1. ./config/default.json
+  1. <script-dir>/config/default.json
   2. ~/.config/hyprws/config.json
 EOF
 }
@@ -52,8 +52,54 @@ require_command() {
   command -v "$1" >/dev/null 2>&1 || die "missing required command: $1"
 }
 
+lua_quote() {
+  jq -Rr @json <<<"$1"
+}
+
 hypr_dispatch() {
-  hyprctl dispatch "$@" >/dev/null
+  local dispatcher=$1
+  shift
+
+  case "$dispatcher" in
+    exec)
+      local command_string=$1
+      local workspace=$2
+      local lua_command
+      local lua_workspace
+      local lua_dispatch
+
+      lua_command=$(lua_quote "$command_string")
+      lua_workspace=$(lua_quote "$workspace")
+      lua_dispatch="hl.dsp.exec_cmd(${lua_command}, { workspace = ${lua_workspace} })"
+
+      hyprctl dispatch "$lua_dispatch" >/dev/null
+      ;;
+    movetoworkspacesilent)
+      local target=${1%%,address:*}
+      local address=${1#*,address:}
+      local lua_target
+      local lua_window
+      local lua_dispatch
+
+      lua_target=$(lua_quote "$target")
+      lua_window=$(lua_quote "address:$address")
+      lua_dispatch="hl.dsp.window.move({ workspace = ${lua_target}, window = ${lua_window}, silent = true })"
+
+      hyprctl dispatch "$lua_dispatch" >/dev/null
+      ;;
+    togglespecialworkspace)
+      local lua_workspace
+      local lua_dispatch
+
+      lua_workspace=$(lua_quote "$1")
+      lua_dispatch="hl.dsp.workspace.toggle_special(${lua_workspace})"
+
+      hyprctl dispatch "$lua_dispatch" >/dev/null
+      ;;
+    *)
+      die "unsupported dispatcher: $dispatcher"
+      ;;
+  esac
 }
 
 load_config() {
@@ -154,9 +200,7 @@ spawn_client_if_missing() {
 
   command_string=$(jq -r 'map(@sh) | join(" ")' <<<"$spawn_json")
 
-  # The workspace prefix is interpreted by Hyprland so the spawned client lands in
-  # the target special workspace immediately.
-  hypr_dispatch exec "[workspace special:${workspace}] ${command_string}"
+  hypr_dispatch exec "$command_string" "special:${workspace}"
   return 0
 }
 
@@ -171,16 +215,11 @@ process_workspace_entry() {
   local matchers_json
   local spawn_json
 
-  enabled=$(jq -r '
-    if has("enabled") then .enabled
-    elif has("enable") then .enable
-    else false
-    end
-  ' <<<"$entry_json")
+  enabled=$(jq -r '.enabled // false' <<<"$entry_json")
   [[ "$enabled" == "true" ]] || return 1
 
   matchers_json=$(jq -c '.match // []' <<<"$entry_json")
-  spawn_json=$(jq -c '.spawn // .command // empty' <<<"$entry_json")
+  spawn_json=$(jq -c '.spawn // empty' <<<"$entry_json")
   move=$(jq -r '.move // false' <<<"$entry_json")
 
   if [[ "$spawn_json" != "" ]] && spawn_client_if_missing "$workspace" "$matchers_json" "$spawn_json" "$clients_json"; then
@@ -212,7 +251,7 @@ toggle_workspace() {
 
   # This preserves the original Caelestia behavior: if we launched something new,
   # we do not immediately toggle the workspace visibility again.
-  if (( spawned_any != 0 )); then
+  if ((spawned_any != 0)); then
     hypr_dispatch togglespecialworkspace "$workspace"
   fi
 }
