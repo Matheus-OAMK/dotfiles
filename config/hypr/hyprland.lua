@@ -14,7 +14,7 @@ require("conf.voxtype-submap")
 require("conf.custom-desktop")
 
 -- Ref https://wiki.hypr.land/Configuring/Variables/#misc
--- DISABLE random wallpaper (not sure why these arent defaults)
+-- DISABLE random wallpaper (not sure why these aren't defaults)
 hl.config({
 	misc = {
 		force_default_wallpaper = 0, -- Set to 0 or 1 to disable the anime mascot wallpapers

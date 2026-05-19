@@ -3,7 +3,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 
-	-- Polkit authentication agent (GUI privilege escalation) for example promptig for password when opening another drive
+	-- Polkit authentication agent (GUI privilege escalation) for example prompting for password when opening another drive
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 
 	-- Keyring
