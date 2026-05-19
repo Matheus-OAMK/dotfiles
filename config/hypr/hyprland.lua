@@ -8,9 +8,7 @@ require("conf.animations")
 require("conf.input")
 require("conf.general")
 require("conf.keybinds")
--- WARN: Not sure if this will work because the "dot" seperating the directries.... return to this later
--- source = ~/.config/hypr/conf.d/*.conf
-require("conf.d.voxtype-submap")
+require("conf.voxtype-submap")
 
 -- Custom
 require("conf.custom-desktop")

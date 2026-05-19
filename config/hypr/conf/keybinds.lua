@@ -22,6 +22,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(music))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(email))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(communication))
@@ -31,7 +32,7 @@ hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd(sysmon))
 
 -- Menu launches
 hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd(menu .. " w"))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu .. " d"))
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(menu .. " d"), { release = true })
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(menu .. " f"))
 
 -- Utilities
