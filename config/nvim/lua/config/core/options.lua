@@ -1,3 +1,5 @@
+require("vim._core.ui2").enable()
+
 -- Sync clipboard with OS
 vim.opt.clipboard = "unnamedplus"
 
