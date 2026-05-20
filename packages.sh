@@ -212,7 +212,34 @@ PACKAGES_APPLICATIONS=(
   vesktop        # Discord
   betterbird-bin # Email client
   tidal-hifi-bin # Music
+  flatpak        # To isolate packages
 )
+
+FLATPAK_APPLICATIONS=(
+  com.stremio.Stremio # Stremio
+)
+
+install_flatpak_applications() {
+  if ! command -v flatpak &>/dev/null; then
+    echo "flatpak was not found. Install the applications group first." >&2
+    return 1
+  fi
+
+  echo "==> Installing FLATPAK_APPLICATIONS"
+  for app in "${FLATPAK_APPLICATIONS[@]}"; do
+    if flatpak info "$app" &>/dev/null; then
+      echo "✅ $app already installed"
+      continue
+    fi
+
+    if ask "Install Flatpak app $app?"; then
+      echo "⬇️ Installing $app via flatpak..."
+      flatpak install -y flathub "$app"
+    else
+      echo "⏭ Skipping $app"
+    fi
+  done
+}
 
 if [[ " ${REQUESTED_GROUPS[*]} " == *" all "* ]]; then
   REQUESTED_GROUPS=(ui dev applications)
@@ -233,6 +260,7 @@ for group in "${REQUESTED_GROUPS[@]}"; do
     ;;
   applications)
     install_group "PACKAGES_APPLICATIONS" "${PACKAGES_APPLICATIONS[@]}"
+    install_flatpak_applications
     ;;
   esac
 done
