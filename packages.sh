@@ -196,8 +196,8 @@ PACKAGES_DEV=(
   lazygit  # git TUI
   rsync
 
-  # Node version manager
-  fnm
+  fnm # Node version manager
+  uv  # Python version manager / packages/ all batteries included
 
   # Docker
 
