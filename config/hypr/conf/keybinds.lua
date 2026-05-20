@@ -12,6 +12,21 @@ local sysmon = "hyprws sysmon"
 local email = "hyprws email"
 local music = "hyprws music"
 
+-- Prevent menu from launching on fullscreen
+local function launchMenuUnlessFullscreen()
+	local win = hl.get_active_window()
+	if win and win.fullscreen and win.fullscreen > 1 then
+		return
+	end
+
+	local ws = hl.get_active_workspace()
+	if ws and ws.fullscreen_mode and ws.fullscreen_mode > 1 then
+		return
+	end
+
+	hl.exec_cmd(menu .. " d")
+end
+
 ----------------
 --- Keybinds ---
 ----------------
@@ -32,7 +47,7 @@ hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd(sysmon))
 
 -- Menu launches
 hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd(menu .. " w"))
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(menu .. " d"), { release = true })
+hl.bind("SUPER + SUPER_L", launchMenuUnlessFullscreen, { release = true })
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(menu .. " f"))
 
 -- Utilities
