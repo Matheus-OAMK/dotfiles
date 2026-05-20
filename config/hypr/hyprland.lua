@@ -124,6 +124,16 @@ hl.window_rule({
 	center = true,
 })
 
+--  bluetui
+hl.window_rule({
+	match = {
+		class = "bluetui",
+	},
+	float = true,
+	size = { "monitor_w*0.4", "monitor_h*0.6" },
+	center = true,
+})
+
 -- # Discord clients and whastspp
 hl.window_rule({
 	match = {

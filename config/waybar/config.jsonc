@@ -136,7 +136,7 @@
     "format-connected": "󰂱",
     "format-no-controller": "",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": ""
+    "on-click": "kitty --class bluetui bluetui"
   },
   "pulseaudio": {
     "format": "{icon}",
