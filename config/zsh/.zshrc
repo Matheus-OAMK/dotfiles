@@ -128,4 +128,3 @@ fi
 
 source <(fzf --zsh)
 
-. "$HOME/.local/share/../bin/env"
