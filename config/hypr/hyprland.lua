@@ -167,3 +167,13 @@ hl.window_rule({
 	},
 	opacity = "0.90 override 0.90 override 1",
 })
+
+-- swanyc
+hl.layer_rule({
+	name = "swaync_ignore_alpha",
+	match = {
+		namespace = "^swaync-(notification-window|control-center)$",
+	},
+	ignore_alpha = 0.5,
+	blur = true,
+})

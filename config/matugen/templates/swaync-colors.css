@@ -1,0 +1,32 @@
+/* HyDE: wallbash_pry1 */
+@define-color sw-cc-bg {{colors.surface.default.hex}};
+
+/* HyDE: wallbash_pry4 */
+@define-color sw-cc-border-color {{colors.primary.default.hex}};
+
+/* HyDE: wallbash_pry1 */
+@define-color sw-noti-window-bg {{colors.surface.default.hex}};
+
+/* HyDE: wallbash_pry4 */
+@define-color sw-noti-window-br {{colors.primary.default.hex}};
+
+/* HyDE: wallbash_txt2 */
+@define-color sw-noti-window-txt {{colors.on_surface.default.hex}};
+
+/* HyDE: wallbash_pry2 */
+@define-color sw-noti-bg-hover {{colors.surface_container_high.default.hex}};
+
+/* HyDE: wallbash_pry3 */
+@define-color sw-msg-sum-fg {{colors.secondary.default.hex}};
+
+/* HyDE: wallbash_pry4 */
+@define-color sw-msg-body {{colors.primary.default.hex}};
+
+/* HyDE: wallbash_pry4 */
+@define-color sw-noti-gr-icon {{colors.primary.default.hex}};
+
+/* HyDE: wallbash_pry4 */
+@define-color sw-noti-gr-collapse-but-hvr {{colors.primary.default.hex}};
+
+/* HyDE: wallbash_pry4 */
+@define-color sw-noti-gr-collapse-but-icon {{colors.primary.default.hex}};

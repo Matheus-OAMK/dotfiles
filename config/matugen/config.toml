@@ -19,3 +19,8 @@ post_hook = 'pkill -SIGUSR2 waybar'
 [templates.rofi]
 input_path = '~/.config/matugen/templates/rofi-colors.rasi'
 output_path = '~/.config/rofi/theme.rasi'
+
+[templates.swaync]
+input_path = '~/.config/matugen/templates/swaync-colors.css'
+output_path = '~/.config/swaync/colors.css'
+post_hook = 'swaync-client -rs'
