@@ -34,7 +34,8 @@ return {
 					"shfmt", -- Bash formatter
 					"lua_ls", -- Lua language server
 					"stylua", -- lua formatter
-					"ts_ls", -- Typescript ( may replace with vtsls )
+					-- "ts_ls", -- Typescript ( may replace with vtsls )
+					"tsgo", -- Typescript go
 					"html", -- # HTML language server
 					"cssls", -- CSS language server
 					"tailwindcss", -- Tailwind CSS language server
@@ -48,13 +49,16 @@ return {
 					"prettierd", -- prettier formatter
 					"ruff",
 					-- "eslint_d", -- javascript/typescript linter
-					-- "solhint", -- solidity linter
+					"oxlint",
+					"oxfmt",
 				},
 			})
 
 			-- Load this last to setup lsp after installation
 			mason_lspconfig.setup({
-				-- automatic_enable = false,
+				automatic_enable = {
+					exclude = { "oxfmt" },
+				},
 			})
 		end,
 	},

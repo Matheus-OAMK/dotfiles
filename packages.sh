@@ -191,9 +191,10 @@ PACKAGES_DEV=(
   fd      # Better find
   ripgrep # better grep
   tree
-  jq       # CLI json parser
-  tealdeer # tldr command
-  lazygit  # git TUI
+  jq         # CLI json parser
+  tealdeer   # tldr command
+  lazygit    # git TUI
+  github-cli # Github cli
   rsync
 
   fnm # Node version manager

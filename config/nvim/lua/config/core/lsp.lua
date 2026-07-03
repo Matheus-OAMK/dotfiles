@@ -30,7 +30,13 @@ vim.diagnostic.config({
 	update_in_insert = false,
 })
 
--- -- ***** LSP *****
+-- ***** LSP *****
+vim.lsp.config("oxlint", {
+	settings = {
+		fixKind = "all",
+	},
+})
+
 -- -- LUA
 -- vim.lsp.enable("lua_ls")
 --

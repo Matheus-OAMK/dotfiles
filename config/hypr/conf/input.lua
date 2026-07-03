@@ -1,16 +1,17 @@
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#input
 hl.config({
 	input = {
-		kb_layout = "us",
+		kb_layout = "us,fi",
 		kb_variant = "",
 		kb_model = "",
-		kb_options = "",
+		kb_options = "grp:alt_space_toggle",
 		kb_rules = "",
 		numlock_by_default = false,
 
 		follow_mouse = 1,
 
-		sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+		sensitivity = -0.3, -- -1.0 - 1.0, 0 means no modification.
+		accel_profile = "flat", -- disable accel
 
 		touchpad = {
 			-- Use natural (inverse) scrolling

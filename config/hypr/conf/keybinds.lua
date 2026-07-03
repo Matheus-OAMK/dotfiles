@@ -6,6 +6,8 @@
 local terminal = "kitty"
 local fileManager = "nautilus"
 local menu = "~/.config/rofi/rofilaunch.sh"
+local emojiMenu = "~/.config/rofi/emoji-picker.sh"
+local cliphistMenu = "~/.config/rofi/cliphist.sh"
 local browser = "brave"
 local communication = "hyprws communication"
 local sysmon = "hyprws sysmon"
@@ -49,6 +51,9 @@ hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd(sysmon))
 hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd(menu .. " w"))
 hl.bind("SUPER + SUPER_L", launchMenuUnlessFullscreen, { release = true })
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(menu .. " f"))
+hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd(emojiMenu .. " --style list")) -- list | grid
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(cliphistMenu .. " --copy"))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(cliphistMenu .. ""))
 
 -- Utilities
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a")) -- Colour picker

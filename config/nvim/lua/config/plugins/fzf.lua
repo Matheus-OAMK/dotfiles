@@ -80,7 +80,7 @@ return {
 			map("<leader>fr", fzf.oldfiles, "[F]ind [R]ecent Files"),
 
 			map("<leader>fR", function()
-				fzf.oldsfiles({ cwd = vim.uv.cwd() })
+				fzf.oldfiles({ cwd = vim.uv.cwd() })
 			end, "[F]ind [R]ecent Files (cwd)"),
 
 			map("<leader>fF", fzf.files, "[S]earch [F]iles (cwd)"),

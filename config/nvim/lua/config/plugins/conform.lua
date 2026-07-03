@@ -1,3 +1,12 @@
+local ox_markers = {
+	".oxlintrc.json",
+	".oxlintrc.jsonc",
+	"oxlint.config.ts",
+	".oxfmtrc.json",
+	".oxfmtrc.jsonc",
+	"oxfmt.config.ts",
+}
+
 return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
@@ -7,16 +16,25 @@ return {
 			lua = { "stylua" },
 			sh = { "shfmt" },
 			python = { "ruff_format" },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-			json = { "prettierd", "prettier", stop_after_first = true },
-			yaml = { "prettierd", "prettier", stop_after_first = true },
-			markdown = { "prettierd", "prettier", stop_after_first = true },
-			css = { "prettierd", "prettier", stop_after_first = true },
-			scss = { "prettierd", "prettier", stop_after_first = true },
-			html = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			javascriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			typescript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			json = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			jsonc = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			yaml = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			markdown = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			css = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			scss = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			html = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+		},
+
+		formatters = {
+			oxfmt = {
+				condition = function(_, ctx)
+					return vim.fs.find(ox_markers, { path = ctx.dirname, upward = true })[1] ~= nil
+				end,
+			},
 		},
 
 		-- Set this to change the default values when calling conform.format()

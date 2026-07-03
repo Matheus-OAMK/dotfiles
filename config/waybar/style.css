@@ -7,8 +7,12 @@
 }
 
 window#waybar {
-  background-color: alpha(@background, 1);
+  background-color: alpha(@background, 0.95);
   color: @on_background;
+}
+
+window#waybar > box {
+  padding: 3px 0;
 }
 
 .modules-left {
@@ -20,9 +24,13 @@ window#waybar {
 }
 
 tooltip {
-  background: alpha(@surface, 0.5);
+  background: alpha(@surface, 0.8);
   color: @on_surface;
   border: 1px solid @primary;
+}
+
+tooltip label {
+  padding: 3px;
 }
 
 #custom-fuzzel {
@@ -30,8 +38,7 @@ tooltip {
 }
 
 #workspaces button {
-  padding: 0 8px;
-  /* margin: 0 2px; */
+  margin: 0 8px;
 }
 
 #workspaces button.empty {
@@ -51,8 +58,14 @@ tooltip {
 #battery,
 #pulseaudio,
 #network,
-#custom-expand-icon {
+#custom-expand-icon,
+#custom-weather,
+#custom-notification {
   margin: 0 8px;
+}
+
+#custom-weather {
+  font-size: 16px;
 }
 
 #custom-power {
@@ -71,15 +84,15 @@ tooltip {
   margin-left: 9px;
 }
 
-/* #custom-screenrecording-indicator, */
-/* #custom-idle-indicator, */
-/* #custom-notification-silencing-indicator { */
-/*   min-width: 12px; */
-/*   margin-left: 5px; */
-/*   margin-right: 0; */
-/*   font-size: 10px; */
-/*   padding-bottom: 1px; */
-/* } */
+#custom-screenrecording-indicator,
+#custom-idle-indicator,
+#custom-notification-silencing-indicator {
+  min-width: 12px;
+  margin-left: 5px;
+  margin-right: 0;
+  font-size: 10px;
+  padding-bottom: 1px;
+}
 
 /* #custom-screenrecording-indicator.active { */
 /*   color: #a55555; */
@@ -104,4 +117,14 @@ tooltip {
 
 #custom-voxtype.transcribing {
   color: @primary;
+}
+
+#custom-notification {
+  color: @primary;
+}
+#custom-notification.none,
+#custom-notification.dnd-none,
+#custom-notification.inhibited-none,
+#custom-notification.dnd-inhibited-none {
+  color: @on_surface;
 }

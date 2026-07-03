@@ -13,7 +13,6 @@ configuration {
     show-icons:                  false;
 }
 
-@theme "~/.cache/wallpaper/wallbash/wallbash.rasi"
 @theme "~/.config/rofi/theme.rasi"
 
 

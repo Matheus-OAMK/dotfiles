@@ -13,7 +13,7 @@
     "custom/voxtype",
     "custom/screenrecording-indicator",
     "custom/idle-indicator",
-    "custom/notification-silencing-indicator"
+    "custom/notification-silencing-indicator",
   ],
   "modules-right": [
     "group/tray-expander",
@@ -21,11 +21,12 @@
     "network",
     "pulseaudio",
     "cpu",
+    "custom/notification",
     "battery",
+    "custom/weather",
     "custom/power"
   ],
   "hyprland/workspaces": {
-    // "on-click": "/home/matheus/.config/hypr/scripts/launch_wlogout.sh",
     "show-special": true,
     "format": "{icon}",
     "format-icons": {
@@ -166,30 +167,24 @@
   },
   "custom/expand-icon": {
     "format": "",
-    "tooltip": false,
+    "tooltip": true,
     "on-scroll-up": "",
     "on-scroll-down": "",
     "on-scroll-left": "",
     "on-scroll-right": ""
   },
-  "custom/screenrecording-indicator": {
-    "on-click": "omarchy-cmd-screenrecord",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
-    "signal": 8,
-    "return-type": "json"
-  },
-  "custom/idle-indicator": {
-    "on-click": "omarchy-toggle-idle",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
-    "signal": 9,
-    "return-type": "json"
-  },
-  "custom/notification-silencing-indicator": {
-    "on-click": "omarchy-toggle-notification-silencing",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
-    "signal": 10,
-    "return-type": "json"
-  },
+  // "custom/screenrecording-indicator": {
+  //   "on-click": "omarchy-cmd-screenrecord",
+  //   "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
+  //   "signal": 8,
+  //   "return-type": "json"
+  // },
+  // "custom/idle-indicator": {
+  //   "on-click": "omarchy-toggle-idle",
+  //   "exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
+  //   "signal": 9,
+  //   "return-type": "json"
+  // },
   "tray": {
     "icon-size": 18,
     "spacing": 17
@@ -204,5 +199,32 @@
       "transcribing": "󰔟"
     },
     "tooltip": true
+  },
+  "custom/notification": {
+    "tooltip": true,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂜",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰪑",
+      "inhibited-notification": "󰂠",
+      "inhibited-none": "󰪓",
+      "dnd-inhibited-notification": "󰂠",
+      "dnd-inhibited-none": "󰪓"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "custom/weather": {
+    "exec": "~/.config/waybar/scripts/weather-openmeteo.sh",
+    "return-type": "json",
+    "interval": 300,
+    "tooltip": true,
+    "on-click": "kitty --class nmtui zsh -lc '~/.config/waybar/scripts/weather-status-openmeteo.sh; sleep infinity'"
   }
 }

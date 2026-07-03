@@ -1,14 +1,14 @@
 * {
-    main-br: #89d6b9;
+    main-br: #bec2ff;
 
-    on-primary: #003829;
-    select-bg: #00513d;
-    select-fg: #a5f2d4;
-    secondary: #b2ccc0;
-    secondary-fixed: #cee9dc;
-    secondary-fixed-dim: #b2ccc0;
-    on-secondary: #1e352c;
-    main-bg: #0f1512;
-    main-fg: #dee4df;
+    on-primary: #262b61;
+    select-bg: #3d4279;
+    select-fg: #e0e0ff;
+    secondary: #c5c4dd;
+    secondary-fixed: #e1e0f9;
+    secondary-fixed-dim: #c5c4dd;
+    on-secondary: #2e2f42;
+    main-bg: #131318;
+    main-fg: #e4e1e9;
 }
 
