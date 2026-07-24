@@ -47,6 +47,23 @@ vim.lsp.config("oxlint", {
 -- vim.lsp.enable("basedpyright")
 --
 
+-- Helper function to filter out noisy symbols (like local variables)
+local function symbols_filter(entry)
+	local allowed_kinds = {
+		"Class",
+		"Function",
+		"Method",
+		"Constructor",
+		"Interface",
+		"Module",
+		"Struct",
+		"Trait",
+		"Enum",
+		"Property",
+	}
+	return vim.tbl_contains(allowed_kinds, entry.kind)
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(event)
@@ -75,17 +92,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Jump to the type of the word under your cursor.
 		--  Useful when you're not sure what type a variable is and you want to see
 		--  the definition of its *type*, not where it was *defined*.
-		map(
-			"<leader>gt",
-			"<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>",
-			"[G]oto [T]ype Definition"
-		)
+		map("gy", "<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>", "[G]oto T[y]pe Definition")
 
 		-- Fuzzy find all the symbols in your current document.
 		--  Symbols are things like variables, functions, types, etc.
 		map("<leader>ss", function()
 			require("fzf-lua").lsp_document_symbols({
-				regex_filter = symbols_fiter,
+				regex_filter = symbols_filter,
 			})
 		end, "[S]earch [S]ymbols(open buffer)")
 
@@ -96,9 +109,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			})
 		end, "[S]earch [S]ymbols (workspace)")
 
-		map("<leader>sd", "<cmd>FzfLua diagnostics_document<cr>", "[S]earch [D]iagnostics (open buffer)")
-
-		map("<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", "[S]earch [D]iagnostics (workspace)")
+		-- Search Diagnostics
+		map("<leader>sd", "<cmd>FzfLua diagnostics_workspace<cr>", "[S]earch [D]iagnostics (workspace)")
+		map("<leader>sD", "<cmd>FzfLua diagnostics_document<cr>", "[S]earch [D]iagnostics (open buffer)")
 
 		-- Rename the variable under your cursor.
 		--  Most Language Servers support renaming across files, etc.
@@ -107,5 +120,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Execute a code action, usually your cursor needs to be on top of an error
 		-- or a suggestion from your LSP for this to activate.
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
+		-- Signature Help
+		map("gK", vim.lsp.buf.signature_help, "Signature Help")
+		vim.keymap.set("i", "<c-k>", vim.lsp.buf.signature_help, {
+			buffer = event.buf,
+			desc = "LSP: Signature Help",
+			silent = true,
+		})
 	end,
 })

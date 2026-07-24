@@ -31,6 +31,14 @@ vim.opt.mousemoveevent = true
 -- Hide mode since lualine shows it already
 vim.opt.showmode = false
 
+-- Use one global statusline at the bottom instead of one per window
+vim.opt.laststatus = 3
+
+-- Show current document symbol path from Trouble in lualine
+-- Disable globally with `vim.g.trouble_lualine = false`
+-- Disable per buffer with `vim.b.trouble_lualine = false`
+vim.g.trouble_lualine = false
+
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
 vim.opt.smartcase = true

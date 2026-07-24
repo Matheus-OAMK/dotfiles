@@ -23,4 +23,7 @@ hl.on("hyprland.start", function()
 
 	-- Auto delete trash 60 days old
 	hl.exec_cmd("trash-empty 60")
+
+	-- RGB
+	hl.exec_cmd("openrgb -p white")
 end)

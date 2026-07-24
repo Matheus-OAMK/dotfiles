@@ -14,6 +14,9 @@ return {
 		-- Quickfix
 		config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
 
+		-- Open selected fzf-lua results in Trouble with ctrl-t
+		config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
+
 		-- Register fzf-lua to be the handler for vim.ui.select
 		-- Optionally pass a custom ui_select override from opts
 		fzf.register_ui_select({
