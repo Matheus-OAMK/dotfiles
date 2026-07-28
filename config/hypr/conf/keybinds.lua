@@ -2,17 +2,8 @@
 --- MY PROGRAMS ---
 -------------------
 
--- Set programs that you use
-local terminal = "kitty"
-local fileManager = "nautilus"
-local menu = "~/.config/rofi/rofilaunch.sh"
-local emojiMenu = "~/.config/rofi/emoji-picker.sh"
-local cliphistMenu = "~/.config/rofi/cliphist.sh"
-local browser = "brave"
-local communication = "hyprws communication"
-local sysmon = "hyprws sysmon"
-local email = "hyprws email"
-local music = "hyprws music"
+local vars = require("variables")
+local hyprws = require("utils.hyprws")
 
 -- Prevent menu from launching on fullscreen
 local function launchMenuUnlessFullscreen()
@@ -26,7 +17,7 @@ local function launchMenuUnlessFullscreen()
 		return
 	end
 
-	hl.exec_cmd(menu .. " d")
+	hl.exec_cmd(vars.menu .. " d")
 end
 
 ----------------
@@ -37,23 +28,23 @@ end
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(music))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(email))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(communication))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(vars.terminal))
+hl.bind(mainMod .. " + M", hyprws.toggle("music"))
+hl.bind(mainMod .. " + R", hyprws.toggle("email"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(vars.fileManager))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(vars.browser))
+hl.bind(mainMod .. " + D", hyprws.toggle("communication"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo()) -- dwindle
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("~/.config/hypr/scripts/launch_wlogout.sh"))
-hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd(sysmon))
+hl.bind("CTRL + ALT + DELETE", hyprws.toggle("sysmon"))
 
 -- Menu launches
-hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd(menu .. " w"))
+hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd(vars.menu .. " w"))
 hl.bind("SUPER + SUPER_L", launchMenuUnlessFullscreen, { release = true })
-hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(menu .. " f"))
-hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd(emojiMenu .. " --style list")) -- list | grid
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(cliphistMenu .. " --copy"))
-hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(cliphistMenu .. ""))
+hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(vars.menu .. " f"))
+hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd(vars.emojiMenu .. " --style list")) -- list | grid
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(vars.cliphistMenu .. " --copy"))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(vars.cliphistMenu .. ""))
 
 -- Utilities
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a")) -- Colour picker
