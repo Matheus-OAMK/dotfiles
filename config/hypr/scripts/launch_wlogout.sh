@@ -17,12 +17,12 @@ wlTmplt="${confDir}/wlogout/style.css"
 wlColms=6
 hypr_border="${hypr_border:-10}"
 
-x_mon=$(hyprctl -j monitors | jq '.[] | select(.focused == true) | .width')
-y_mon=$(hyprctl -j monitors | jq '.[] | select(.focused == true) | .height')
-hypr_scale=$(hyprctl -j monitors | jq '.[] | select(.focused == true) | .scale' | sed 's/\.//')
+# Use logical pixels. Hyprland now emits integer scales such as `1`, so
+# stripping the decimal point (the old approach) produced 40,320px margins.
+y_mon=$(hyprctl -j monitors | jq -r '.[] | select(.focused == true) | (.height / .scale | floor)')
 
-export mgn=$((y_mon * 28 / hypr_scale))
-export hvr=$((y_mon * 23 / hypr_scale))
+export mgn=$((y_mon * 28 / 100))
+export hvr=$((y_mon * 23 / 100))
 export fntSize=$((y_mon * 2 / 100))
 export active_rad=$((hypr_border * 5))
 export button_rad=$((hypr_border * 8))
