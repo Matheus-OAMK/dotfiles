@@ -1,0 +1,360 @@
+@define-color text            @on_surface;
+@define-color background-alt  alpha(@surface_container_high, .4);
+@define-color selected        @primary;
+@define-color hover           alpha(@selected, .4);
+@define-color urgent          @primary;
+
+* {
+  color: @text;
+
+  all: unset;
+  font-size: 18px;
+  font-family: "Symbols Nerd Font", "Rubik", "JetBrainsMono Nerd Font Propo";
+  transition: 200ms;
+}
+
+/* Avoid an opaque background behind the control center. */
+.blank-window {
+  background: transparent;
+}
+
+/* CONTROL CENTER ------------------------------------------------------------------------ */
+
+.control-center {
+  background: alpha(@surface, 0.55);
+  border-radius: 0;
+  border: 1px solid @selected;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.6);
+  margin: 0 18px;
+  padding: 0 12px;
+}
+
+/* Notifications  */
+.control-center .notification-row .notification-background,
+.control-center
+  .notification-row
+  .notification-background
+  .notification.critical {
+  background-color: @background-alt;
+  border-radius: 0;
+  margin: 4px 0;
+  padding: 4px;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification.critical {
+  color: @urgent;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  .notification-content {
+  margin: 6px;
+  padding: 8px 6px 2px 2px;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > * {
+  min-height: 3.4em;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action {
+  background: alpha(@selected, 0.6);
+  color: @text;
+  border-radius: 0;
+  margin: 6px;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action:hover {
+  background: @selected;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action:active {
+  background-color: @selected;
+}
+
+/* Buttons */
+
+.control-center .notification-row .notification-background .close-button {
+  background: transparent;
+  border-radius: 0;
+  color: @text;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid transparent;
+}
+
+.control-center .notification-row .notification-background .close-button:hover {
+  background-color: @hover;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .close-button:active {
+  background-color: @selected;
+}
+
+progressbar,
+progress,
+trough {
+  border-radius: 0;
+}
+
+progressbar {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Keep the empty notification state within the fixed-height panel. */
+.control-center-list-placeholder {
+  font-size: 16px;
+}
+
+.control-center-list-placeholder image {
+  -gtk-icon-size: 80px;
+}
+
+/* Notifications expanded-group */
+
+.notification-group {
+  margin: 2px 8px 2px 8px;
+}
+.notification-group-headers {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: @text;
+  letter-spacing: 2px;
+}
+
+.notification-group-icon {
+  color: @text;
+}
+
+.notification-group-collapse-button,
+.notification-group-close-all-button {
+  background: transparent;
+  color: @text;
+  margin: 4px;
+  border-radius: 0;
+  padding: 4px;
+}
+
+.notification-group-collapse-button:hover,
+.notification-group-close-all-button:hover {
+  background: @hover;
+}
+
+/* WIDGETS --------------------------------------------------------------------------- */
+
+/* Notification clear button */
+.widget-title {
+  font-size: 1.2em;
+  margin: 6px;
+}
+
+.widget-title button {
+  background: @background-alt;
+  border-radius: 0;
+  padding: 4px 16px;
+}
+
+.widget-title button:hover {
+  background-color: @hover;
+}
+
+.widget-title button:active {
+  background-color: @selected;
+}
+
+/* Do not disturb */
+.widget-dnd {
+  margin: 6px;
+  font-size: 1.2rem;
+}
+
+.widget-dnd > switch {
+  background: @background-alt;
+  font-size: initial;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 2px;
+}
+
+.widget-dnd > switch:hover,
+.widget-dnd > switch:checked {
+  background: @hover;
+}
+
+.widget-dnd > switch slider {
+  background: @text;
+  border-radius: 0;
+}
+
+/* Buttons menu */
+.widget-buttons-grid {
+  font-size: x-large;
+  padding: 6px 2px;
+  margin: 0 6px 6px;
+  border-radius: 0;
+  background: @background-alt;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  margin: 4px 10px;
+  padding: 6px 12px;
+  background: transparent;
+  border-radius: 0;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+  background: @hover;
+}
+
+/* Music player */
+.widget-mpris {
+  background: @background-alt;
+  border-radius: 0;
+  color: @text;
+  margin: 20px 6px;
+}
+
+/* NOTE: Background need *opacity 1* otherwise will turn into the album art blurred  */
+.widget-mpris-player {
+  background-color: @surface_container_high;
+  border-radius: 0;
+  padding: 6px 14px;
+  margin: 6px;
+}
+
+/* Split the text and controls across the artwork height. */
+.widget-mpris-player .mpris-overlay > box:first-child > box:last-child {
+  margin-bottom: 32px;
+}
+
+.widget-mpris-player .mpris-overlay > box:last-child {
+  margin-top: -32px;
+  margin-left: 108px;
+}
+
+.widget-mpris button {
+  background: transparent;
+  color: @text;
+  font-size: 20px;
+  margin: 1px;
+  padding: 6px 7px;
+  border-radius: 0;
+}
+
+.widget-mpris button image {
+  -gtk-icon-size: 20px;
+}
+
+.widget-mpris button:hover {
+  background: @hover;
+  color: @text;
+}
+
+.widget-mpris button:active {
+  background: alpha(@selected, 0.6);
+  color: @text;
+}
+
+.widget-mpris-album-art {
+  border-radius: 0;
+}
+
+.widget-mpris-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.widget-mpris-subtitle {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+picture.mpris-background {
+  opacity: 0;
+}
+
+/* Volume */
+.widget-volume {
+  background: @background-alt;
+  color: @text;
+  padding: 10px 12px;
+  margin: 6px;
+  border-radius: 0;
+}
+
+.widget-volume button {
+  background: transparent;
+  color: @text;
+  padding: 4px;
+  border-radius: 0;
+}
+
+.widget-volume button:hover {
+  background: @hover;
+}
+
+.widget-volume scale {
+  margin: 0 8px;
+}
+
+.widget-volume scale trough {
+  background: alpha(@text, 0.15);
+  min-height: 6px;
+  border-radius: 0;
+}
+
+.widget-volume scale highlight {
+  background: @selected;
+  min-height: 6px;
+  border-radius: 0;
+}
+
+.widget-volume scale slider {
+  background: @text;
+  min-width: 12px;
+  min-height: 12px;
+  margin: -3px;
+  border-radius: 0;
+}
+
+.per-app-volume {
+  background: @background-alt;
+  margin: 8px 0 0;
+  padding: 6px;
+  border-radius: 0;
+}
+
+.widget-volume row image {
+  -gtk-icon-size: 20px;
+  margin-right: 8px;
+}
