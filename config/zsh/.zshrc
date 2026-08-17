@@ -104,6 +104,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # --- Aliases ---
 alias vi="nvim"
 alias vil="NVIM_APPNAME=nvim-lazy nvim"
+alias s="kitten ssh"
 
 # Function
 d() {

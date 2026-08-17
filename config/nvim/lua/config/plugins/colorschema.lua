@@ -1,23 +1,23 @@
 return {
 	-- NOTE: dracula
-	-- {
-	-- 	"Mofiqul/dracula.nvim",
-	-- 	config = function()
-	-- 		require("dracula").setup({
-	-- 			transparent_bg = false,
-	-- 			italic_comment = true,
-	-- 		})
-	--
-	-- 		-- HACK: set this on the color you want to be persistent
-	-- 		-- when quit and reopening nvim
-	--
-	-- 		-- vim.opt.winborder = "rounded"
-	-- 		-- vim.cmd("colorscheme dracula-soft")
-	-- 		-- OR
-	-- 		-- vim.opt.winborder = "rounded"
-	-- 		-- vim.cmd("colorscheme dracula")
-	-- 	end,
-	-- },
+	{
+		"Mofiqul/dracula.nvim",
+		config = function()
+			require("dracula").setup({
+				transparent_bg = false,
+				italic_comment = true,
+			})
+
+			-- HACK: set this on the color you want to be persistent
+			-- when quit and reopening nvim
+
+			-- vim.opt.winborder = "rounded"
+			-- vim.cmd("colorscheme dracula-soft")
+			-- OR
+			-- vim.opt.winborder = "rounded"
+			-- vim.cmd("colorscheme dracula")
+		end,
+	},
 
 	-- NOTE: catppuccin
 	{
@@ -52,6 +52,27 @@ return {
 			-- when quit and reopening nvim
 			vim.opt.winborder = "rounded"
 			vim.cmd("colorscheme catppuccin")
+		end,
+	},
+
+	-- NOTE: tokyonight
+	{
+		"folke/tokyonight.nvim",
+		priority = 1000,
+		opts = {
+			style = "night", -- "storm", "moon", "night", "day"
+			transparent = true,
+			styles = {
+				sidebars = "transparent",
+				floats = "transparent",
+			},
+		},
+		config = function(_, opts)
+			require("tokyonight").setup(opts)
+			-- HACK: set this on the color you want to be persistent
+			-- when quit and reopening nvim
+			-- vim.opt.winborder = "rounded"
+			-- vim.cmd("colorscheme tokyonight")
 		end,
 	},
 }

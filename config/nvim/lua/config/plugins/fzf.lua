@@ -30,7 +30,12 @@ return {
 		})
 
 		return {
-			"default-title",
+			"default",
+			defaults = {
+				formatter = "path.dirname_first",
+				cwd_prompt = true,
+			},
+			fzf_colors = true,
 			winopts = {
 				height = 0.9,
 				width = 0.9,
@@ -40,10 +45,11 @@ return {
 			},
 			files = {
 				file_icons = "mini",
-				cwd_prompt = true,
+				git_icons = true,
+				-- cwd_prompt = true,
 				cwd_prompt_shorten_len = 40, -- shorten prompt beyond this length
 				-- cwd_header = true,
-				fd_opts = [[--color=never --type f --type l --exclude .git --exclude node_modules]],
+				-- fd_opts = [[--color=never --type f --type l --exclude .git --exclude node_modules]],
 				hidden = true, -- show hidden files
 				follow = true,
 				no_ignore = false, -- respect .gitignore
@@ -59,7 +65,7 @@ return {
 			},
 
 			grep = {
-				rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512",
+				rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512 -e",
 				hidden = true, -- show hidden by default
 				follow = true, -- follow symlinks by default
 				no_ignore = false, -- respect ".gitignore"  by default
@@ -78,6 +84,14 @@ return {
 		end
 
 		return {
+
+			-- ***** Git *****
+			map("<leader>gc", fzf.git_bcommits, "[G]it [C]ommits"),
+			map("<leader>gd", fzf.git_diff, "[G]it [D]iff (files)"),
+			map("<leader>gl", fzf.git_commits, "[G]it Commit [L]og"),
+			map("<leader>gs", fzf.git_status, "[G]it [S]tatus"),
+			map("<leader>gS", fzf.git_stash, "[G]it [S]tash"),
+
 			-- ***** Find *****
 			map("<leader><leader>", fzf.buffers, "[ ] Find existing buffers"),
 			map("<leader>fr", fzf.oldfiles, "[F]ind [R]ecent Files"),
