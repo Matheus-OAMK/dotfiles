@@ -14,7 +14,7 @@
 
 {
     "label": "logout",
-    "action": "hyde-shell logout",
+    "action": "hyprshutdown",
     "text": "Logout",
     "keybind": "e"
 }
