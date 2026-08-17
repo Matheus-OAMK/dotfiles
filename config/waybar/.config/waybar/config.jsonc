@@ -17,7 +17,7 @@
     "bluetooth",
     "network",
     "pulseaudio",
-    "cpu",
+    "pulseaudio#microphone",
     "custom/notification",
     "battery",
     "custom/weather",
@@ -56,10 +56,6 @@
     "format": "󰐥",
     "on-click": "/home/matheus/.config/hypr/scripts/launch_wlogout.sh",
     "tooltip": false,
-  },
-  "cpu": {
-    "interval": 5,
-    "format": "󰍛",
   },
   "clock": {
     "format": "{:L%A %H:%M}",
@@ -118,6 +114,14 @@
       "default": ["", "", ""],
     },
   },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "",
+    "format-source-muted": "",
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "tooltip-format": "Microphone",
+  },
   "group/tray-expander": {
     "orientation": "inherit",
     "drawer": {
@@ -134,18 +138,6 @@
     "on-scroll-left": "",
     "on-scroll-right": "",
   },
-  // "custom/screenrecording-indicator": {
-  //   "on-click": "omarchy-cmd-screenrecord",
-  //   "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
-  //   "signal": 8,
-  //   "return-type": "json"
-  // },
-  // "custom/idle-indicator": {
-  //   "on-click": "omarchy-toggle-idle",
-  //   "exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
-  //   "signal": 9,
-  //   "return-type": "json"
-  // },
   "tray": {
     "icon-size": 18,
     "spacing": 17,

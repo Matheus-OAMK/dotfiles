@@ -54,7 +54,6 @@ tooltip label {
   color: @primary;
 }
 
-#cpu,
 #battery,
 #pulseaudio,
 #network,
