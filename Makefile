@@ -42,16 +42,16 @@ list-config:
 	@printf '%s\n' $(PACKAGES)
 
 config:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --verbose=1 $(PACKAGES)
+	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --no-folding --verbose=1 $(PACKAGES)
 
 unconfig:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --delete --verbose=1 $(PACKAGES)
+	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --delete --no-folding --verbose=1 $(PACKAGES)
 
 reconfig:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --restow --verbose=1 $(PACKAGES)
+	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --restow --no-folding --verbose=1 $(PACKAGES)
 
 check-config:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --simulate --verbose=1 $(PACKAGES)
+	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --simulate --no-folding --verbose=1 $(PACKAGES)
 
 assets:
 	@mkdir -p "$(ASSETS_TARGET)"
