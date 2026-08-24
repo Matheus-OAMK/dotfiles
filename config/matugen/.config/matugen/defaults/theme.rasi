@@ -1,0 +1,15 @@
+/* Base monochrome palette used before Matugen generates wallpaper colors. */
+
+* {
+    main-br: #ffffff;
+
+    on-primary: #000000;
+    select-bg: #ffffff;
+    select-fg: #000000;
+    secondary: #ffffff;
+    secondary-fixed: #ffffff;
+    secondary-fixed-dim: #ffffff;
+    on-secondary: #000000;
+    main-bg: #000000;
+    main-fg: #ffffff;
+}

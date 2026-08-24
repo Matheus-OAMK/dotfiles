@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+defaults="$config_home/matugen/defaults"
+
+copy_default() {
+  local source="$1"
+  local destination="$2"
+
+  if [[ ! -e "$destination" ]]; then
+    mkdir -p "$(dirname "$destination")"
+    rm -f "$destination"
+    cp "$source" "$destination"
+    printf 'Installed base theme: %s\n' "$destination"
+  fi
+}
+
+for file in colors.css colors.lua theme.rasi; do
+  if [[ ! -f "$defaults/$file" ]]; then
+    printf 'Error: base theme missing: %s\n' "$defaults/$file" >&2
+    exit 1
+  fi
+done
+
+copy_default "$defaults/colors.lua" "$config_home/hypr/colors.lua"
+copy_default "$defaults/theme.rasi" "$config_home/rofi/theme.rasi"
+
+for app in waybar swaync wlogout; do
+  copy_default "$defaults/colors.css" "$config_home/$app/colors.css"
+done

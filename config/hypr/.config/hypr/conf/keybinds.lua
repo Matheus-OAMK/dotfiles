@@ -29,6 +29,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(vars.terminal))
+hl.bind(mainMod .. " + ALT + T", hl.dsp.exec_cmd("kitty-tmux"))
 hl.bind(mainMod .. " + M", hyprws.toggle("music"))
 hl.bind(mainMod .. " + R", hyprws.toggle("email"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(vars.fileManager))
@@ -49,7 +50,7 @@ hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(vars.cliphistMenu .. ""))
 -- Utilities
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a")) -- Colour picker
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot --freeze -m region --raw | satty --filename -")) -- screenshot region
-hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd("hyprshot -m output --raw -")) -- screenshot full screen
+hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd("hyprshot -m output -m active")) -- screenshot full screen
 hl.bind(mainMod .. " + SHIFT + F12", hl.dsp.exec_cmd("hyprshot -m window --raw | satty --filename -")) -- screenshot window
 hl.bind(
 	mainMod .. " + SHIFT + T",

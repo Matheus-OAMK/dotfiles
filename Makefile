@@ -8,7 +8,7 @@ PACKAGES := $(sort $(notdir $(patsubst %/,%,$(wildcard $(CONFIG_STOW_DIR)/*/))))
 ASSETS_TARGET := $(HOME)/Pictures
 LOCAL_TARGET := $(HOME)/.local
 
-.PHONY: help install uninstall check-all list-config config unconfig reconfig check-config assets unassets check-assets local unlocal check-local
+.PHONY: help install uninstall check-all list-config config unconfig reconfig check-config assets unassets check-assets local theme-init unlocal check-local
 
 help:
 	@printf '%s\n' \
@@ -28,10 +28,11 @@ help:
 		'  make unassets                     Remove managed asset links' \
 		'  make check-assets                 Preview asset links' \
 		'  make local                        Link files into ~/.local' \
+		'  make theme-init                   Install missing base theme files' \
 		'  make unlocal                      Remove managed local links' \
 		'  make check-local                  Preview local links'
 
-install: config assets local
+install: config assets local theme-init
 
 uninstall: unconfig unassets unlocal
 
@@ -66,6 +67,9 @@ check-assets:
 local:
 	@mkdir -p "$(LOCAL_TARGET)"
 	$(STOW) --dir="$(ROOT_STOW_DIR)" --target="$(LOCAL_TARGET)" --no-folding --verbose=1 local
+
+theme-init: config
+	@bash "$(CURDIR)/local/bin/matugen-theme-init"
 
 unlocal:
 	$(STOW) --dir="$(ROOT_STOW_DIR)" --target="$(LOCAL_TARGET)" --delete --no-folding --verbose=1 local
