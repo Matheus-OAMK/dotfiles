@@ -213,6 +213,7 @@ PACKAGES_APPLICATIONS=(
   vesktop        # Discord
   betterbird-bin # Email client
   tidal-hifi-bin # Music
+  dropbox        # File synchronization
   flatpak        # To isolate packages
 )
 
