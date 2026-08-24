@@ -5,6 +5,8 @@ ROOT_STOW_DIR := $(CURDIR)
 CONFIG_STOW_DIR := $(CURDIR)/config
 CONFIG_TARGET := $(HOME)
 PACKAGES := $(sort $(notdir $(patsubst %/,%,$(wildcard $(CONFIG_STOW_DIR)/*/))))
+NO_FOLD_PACKAGES := $(filter dropbox,$(PACKAGES))
+FOLD_PACKAGES := $(filter-out dropbox,$(PACKAGES))
 ASSETS_TARGET := $(HOME)/Pictures
 LOCAL_TARGET := $(HOME)/.local
 
@@ -42,16 +44,20 @@ list-config:
 	@printf '%s\n' $(PACKAGES)
 
 config:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --no-folding --verbose=1 $(PACKAGES)
+	$(if $(FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --verbose=1 $(FOLD_PACKAGES),true)
+	$(if $(NO_FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --no-folding --verbose=1 $(NO_FOLD_PACKAGES),true)
 
 unconfig:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --delete --no-folding --verbose=1 $(PACKAGES)
+	$(if $(NO_FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --delete --no-folding --verbose=1 $(NO_FOLD_PACKAGES),true)
+	$(if $(FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --delete --verbose=1 $(FOLD_PACKAGES),true)
 
 reconfig:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --restow --no-folding --verbose=1 $(PACKAGES)
+	$(if $(FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --restow --verbose=1 $(FOLD_PACKAGES),true)
+	$(if $(NO_FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --restow --no-folding --verbose=1 $(NO_FOLD_PACKAGES),true)
 
 check-config:
-	$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --simulate --no-folding --verbose=1 $(PACKAGES)
+	$(if $(FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --simulate --verbose=1 $(FOLD_PACKAGES),true)
+	$(if $(NO_FOLD_PACKAGES),$(STOW) --dir="$(CONFIG_STOW_DIR)" --target="$(CONFIG_TARGET)" --simulate --no-folding --verbose=1 $(NO_FOLD_PACKAGES),true)
 
 assets:
 	@mkdir -p "$(ASSETS_TARGET)"
