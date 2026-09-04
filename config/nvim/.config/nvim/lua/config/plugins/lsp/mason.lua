@@ -51,6 +51,7 @@ return {
 					-- "eslint_d", -- javascript/typescript linter
 					"oxlint",
 					"oxfmt",
+					"qmlls",
 				},
 			})
 

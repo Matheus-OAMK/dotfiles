@@ -89,6 +89,8 @@ return {
 			-- Images
 			image = {
 				enabled = true,
+				math = { enabled = true },
+				img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments" },
 			},
 
 			-- Lazygit
@@ -141,6 +143,25 @@ return {
 					Snacks.toggle.inlay_hints():map("<leader>uh")
 					Snacks.toggle.indent():map("<leader>ug")
 					Snacks.toggle.dim():map("<leader>uD")
+					Snacks.toggle({
+						name = "Images (buffer)",
+						get = function()
+							return vim.b.snacks_images_enabled ~= false
+						end,
+						set = function(state)
+							local buf = vim.api.nvim_get_current_buf()
+							vim.b[buf].snacks_images_enabled = state
+							Snacks.image.placement.clean(buf)
+
+							if state then
+								vim.b[buf].snacks_image_attached = nil
+								Snacks.image.doc.attach(buf)
+							else
+								pcall(vim.api.nvim_del_augroup_by_name, "snacks.image.inline." .. buf)
+								pcall(vim.api.nvim_del_augroup_by_name, "snacks.image.doc." .. buf)
+							end
+						end,
+					}):map("<leader>ui")
 					Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 				end,
 			})

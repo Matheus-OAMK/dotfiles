@@ -43,6 +43,8 @@
   "widgets": [
     "label",
     "buttons-grid",
+    "buttons-grid#nightlight",
+    "slider#brightness",
     "volume",
     "mpris",
     "title",
@@ -68,6 +70,26 @@
     "volume": {
       "label": "󰕾",
       "show-per-app": true
+    },
+    "buttons-grid#nightlight": {
+      "buttons-per-row": 1,
+      "actions": [
+        {
+          "label": "󰖔  Night light",
+          "type": "toggle",
+          "command": "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then hyprctl hyprsunset temperature 2500; else hyprctl hyprsunset temperature 6000 && hyprctl hyprsunset identity; fi'",
+          "update-command": "sh -c '[ \"$(hyprctl hyprsunset temperature)\" = 2500 ] && echo true || echo false'"
+        }
+      ]
+    },
+    "slider#brightness": {
+      "label": "󰃠",
+      "min": 20,
+      "max": 100,
+      "min_limit": 20,
+      "max_limit": 100,
+      "cmd_setter": "hyprctl hyprsunset gamma $value",
+      "cmd_getter": "hyprctl hyprsunset gamma"
     },
     "buttons-grid": {
       "actions": [

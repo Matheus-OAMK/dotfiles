@@ -15,6 +15,9 @@ return {
 			icons = { "󰼏 ", "󰎨 ", "󰎫 ", "󰎲 ", "󰎯 ", "󰎴 " },
 			backgrounds = {},
 		},
+		latex = {
+			enabled = false,
+		},
 		dash = {
 			enabled = false,
 			width = 15,

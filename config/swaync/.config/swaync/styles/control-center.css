@@ -232,7 +232,8 @@ progressbar {
   border-radius: 0;
 }
 
-.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+.widget-buttons-grid > flowbox > flowboxchild > button:hover,
+.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
   background: @hover;
 }
 
@@ -304,7 +305,8 @@ picture.mpris-background {
 }
 
 /* Volume */
-.widget-volume {
+.widget-volume,
+.widget-slider {
   background: @background-alt;
   color: @text;
   padding: 10px 12px;
@@ -323,23 +325,27 @@ picture.mpris-background {
   background: @hover;
 }
 
-.widget-volume scale {
+.widget-volume scale,
+.widget-slider scale {
   margin: 0 8px;
 }
 
-.widget-volume scale trough {
+.widget-volume scale trough,
+.widget-slider scale trough {
   background: alpha(@text, 0.15);
   min-height: 6px;
   border-radius: 0;
 }
 
-.widget-volume scale highlight {
+.widget-volume scale highlight,
+.widget-slider scale highlight {
   background: @selected;
   min-height: 6px;
   border-radius: 0;
 }
 
-.widget-volume scale slider {
+.widget-volume scale slider,
+.widget-slider scale slider {
   background: @text;
   min-width: 12px;
   min-height: 12px;

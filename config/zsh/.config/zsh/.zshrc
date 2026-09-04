@@ -1,6 +1,6 @@
 # --- Greeter ---
 if [[ $- == *i* ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-    fastfetch
+  fastfetch --config ~/.config/fastfetch/config-minimal.jsonc
 fi
 
 # --- Options ---

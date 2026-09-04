@@ -176,6 +176,9 @@ PACKAGES_DEV=(
   tree-sitter-cli # Needed for neovim
   vim
   nano
+  # Text Editor - Snacks.nvim image rendering
+  tectonic    # Compile LaTeX to PDF
+  ghostscript # Convert rendered PDF for ImageMagick
 
   # Terminal
   zsh
