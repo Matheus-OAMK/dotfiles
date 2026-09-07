@@ -4,7 +4,7 @@ hl.config({
 		kb_layout = "us,fi",
 		kb_variant = "",
 		kb_model = "",
-		kb_options = "grp:alt_space_toggle",
+		kb_options = "grp:alt_space_toggle, ctrl:nocaps",
 		kb_rules = "",
 		numlock_by_default = false,
 
