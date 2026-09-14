@@ -1,11 +1,9 @@
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#input
 hl.config({
 	input = {
-		kb_layout = "us,fi",
-		kb_variant = "",
-		kb_model = "",
+		kb_layout = "se, us",
+		kb_variant = "us,",
 		kb_options = "grp:alt_space_toggle, ctrl:nocaps",
-		kb_rules = "",
 		numlock_by_default = false,
 
 		follow_mouse = 1,
