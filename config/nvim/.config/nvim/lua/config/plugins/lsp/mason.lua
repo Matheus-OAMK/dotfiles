@@ -52,6 +52,7 @@ return {
 					"oxlint",
 					"oxfmt",
 					"qmlls",
+					"harper-ls", -- Spell checker
 				},
 			})
 

@@ -37,16 +37,6 @@ vim.lsp.config("oxlint", {
 	},
 })
 
--- -- LUA
--- vim.lsp.enable("lua_ls")
---
--- -- RUFF
--- vim.lsp.enable("ruff")
---
--- -- BASEDPYRIGHT
--- vim.lsp.enable("basedpyright")
---
-
 -- Helper function to filter out noisy symbols (like local variables)
 local function symbols_filter(entry)
 	local allowed_kinds = {
