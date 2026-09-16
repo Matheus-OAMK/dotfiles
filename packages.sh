@@ -199,6 +199,7 @@ PACKAGES_DEV=(
   lazygit    # git TUI
   github-cli # Github cli
   rsync
+  zoxide # cd alternative with ranking
 
   fnm # Node version manager
   uv  # Python version manager / packages/ all batteries included
