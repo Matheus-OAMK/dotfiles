@@ -218,8 +218,9 @@ PACKAGES_APPLICATIONS=(
   betterbird-bin # Email client
   tidal-hifi-bin # Music
   dropbox        # File synchronization
-  localsend-bin  # Local network file sharing
-  flatpak        # To isolate packages
+  dropbox-cli
+  localsend-bin # Local network file sharing
+  flatpak       # To isolate packages
 )
 
 FLATPAK_APPLICATIONS=(

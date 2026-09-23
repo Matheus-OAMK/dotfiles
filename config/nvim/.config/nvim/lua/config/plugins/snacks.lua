@@ -90,7 +90,7 @@ return {
 			image = {
 				enabled = true,
 				math = { enabled = true },
-				img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments" },
+				img_dirs = { "img", "images", "Images", "assets", "static", "public", "media", "attachments" },
 			},
 
 			-- Lazygit

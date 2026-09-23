@@ -27,9 +27,15 @@ return {
 			css = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
 			scss = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
 			html = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+			qml = { "qmlformat" },
 		},
 
 		formatters = {
+			qmlformat = {
+				command = "/usr/lib/qt6/bin/qmlformat",
+				args = { "-i", "$FILENAME" },
+				stdin = false,
+			},
 			oxfmt = {
 				condition = function(_, ctx)
 					return vim.fs.find(ox_markers, { path = ctx.dirname, upward = true })[1] ~= nil
