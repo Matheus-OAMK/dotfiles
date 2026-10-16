@@ -9,9 +9,12 @@
 # ("idle", "recording", "transcribing") to this file whenever it changes.
 # Required for `voxtype record toggle` and `voxtype status` commands.
 state_file = "auto"
+engine = "whisper"
 
 [hotkey]
 enabled = false
+key = "HOME"
+mode = "push_to_talk"
 
 [audio]
 # Audio input device ("default" uses system default)
@@ -24,6 +27,12 @@ sample_rate = 16000
 # Maximum recording duration in seconds (safety limit)
 max_duration_secs = 120
 
+# Lower playback while recording (requires a newer Voxtype than 0.6.5)
+duck_media = true
+duck_media_volume_percent = 20
+pause_media = false
+duck_media_fade_ms = 150
+
 [audio.feedback]
 # Enable audio feedback sounds (beeps when recording starts/stops)
 enabled = true
@@ -32,7 +41,7 @@ enabled = true
 theme = "subtle"
 #
 # Volume level (0.0 to 1.0)
-volume = 0.1
+volume = 0.8999999761581421
 
 [whisper]
 # Transcription backend: "local" or "remote"
@@ -45,7 +54,7 @@ volume = 0.1
 # .en models are English-only but faster and more accurate for English
 # large-v3-turbo is faster than large-v3 with minimal accuracy loss (recommended for GPU)
 # Or provide absolute path to a custom .bin model file
-model = "large-v3-turbo"
+model = "large-v3"
 
 # Language for transcription
 # Options:
@@ -59,6 +68,11 @@ language = "en"
 
 # Translate non-English speech to English
 translate = false
+mode = "local"
+flash_attention = false
+on_demand_loading = false
+gpu_isolation = false
+eager_processing = false
 
 # Number of CPU threads for inference (omit for auto-detection)
 # threads = 4
@@ -85,7 +99,7 @@ mode = "type"
 # Fall back to clipboard if typing fails
 fallback_to_clipboard = true
 
-pre_type_delay_ms = 180  # 100ms delay before typing starts
+pre_type_delay_ms = 180
 # Delay between typed characters in milliseconds
 type_delay_ms = 0
 
@@ -113,6 +127,8 @@ type_delay_ms = 0
 pre_recording_command = "hyprctl dispatch 'hl.dsp.submap(\"voxtype_recording\")'"
 pre_output_command = "hyprctl dispatch 'hl.dsp.submap(\"voxtype_suppress\")'"
 post_output_command = "hyprctl dispatch 'hl.dsp.submap(\"reset\")'"
+auto_submit = false
+shift_enter_newlines = false
 # See troubleshooting docs for the required Hyprland submap configuration.
 
 [output.notification]
@@ -124,6 +140,46 @@ on_recording_stop = false
 
 # Show notification with transcribed text after transcription completes
 on_transcription = false
+show_engine_icon = false
+
+[osd]
+enabled = false
+frontend = "quickshell"
+style = "aegis-hud"
+layout = "compact"
+position = "top-center"
+width_px = 400
+height_px = 48
+margin_px = 24
+top_margin = 0.85
+opacity = 0.95
+waveform_window_secs = 3.0
+peak_decay_db_per_sec = 6.0
+waveform_gain = 10.0
+
+[status]
+icon_theme = "emoji"
+
+[text]
+spoken_punctuation = false
+smart_auto_submit = false
+
+[vad]
+enabled = false
+backend = "auto"
+threshold = 0.5
+
+[meeting]
+enabled = false
+
+[meeting.diarization]
+enabled = false
+
+[meeting.audio]
+source = "mic"
+
+[parakeet]
+streaming = false
 
 # [text]
 # Text processing options (word replacements, spoken punctuation)

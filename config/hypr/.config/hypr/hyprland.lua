@@ -177,3 +177,13 @@ hl.layer_rule({
 	ignore_alpha = 0.5,
 	blur = true,
 })
+
+-- Quickshell notifications
+hl.layer_rule({
+	name = "quickshell_notifications_ignore_alpha",
+	match = {
+		namespace = "^quickshell-(notifications|notification-center)$",
+	},
+	ignore_alpha = 0.5,
+	blur = true,
+})

@@ -5,19 +5,21 @@ fi
 
 # --- Options ---
 # History
-HISTFILE="$XDG_CACHE_HOME/zsh_history" # move histfile to cache
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+[[ -d ${HISTFILE:h} ]] || mkdir -p ${HISTFILE:h}
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt histverify	# When you recall a command from history (using ↑ or !), don’t execute it immediately;
-setopt inc_append_history # Append commands to history as they are entered, rather than on shell close
 setopt sharehistory  # Share command history between sessions
 setopt histignoredups     # Don’t record duplicate commands
 setopt histignorespace	# Ignore commands that start with space
 setopt histreduceblanks   # Remove superfluous blanks
+setopt extendedhistory    # Save timestamp and duration of each command
 
 # Others
 unsetopt beep # No beeping
 setopt auto_cd # Just type dir name to cd
+setopt interactivecomments # Allow # comments in the interactive shell
 
 
 # --- Shell Prompt ---
@@ -25,7 +27,7 @@ eval "$(starship init zsh)"
 
 
 # --- Keybindings ---
-export KEYTIMEOUT=10 # Timeout quicker
+KEYTIMEOUT=10 # Timeout quicker
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -81,10 +83,10 @@ bindkey '^[[3;5~' kill-word # Ctrl+Delete → delete next word
 # ctrl J & K for going up and down in prev commands
 bindkey "^J" history-search-forward
 bindkey "^K" history-search-backward
-
-## Sessionizer 
-bindkey -s '^f' $'tmux-sessionizer\r'
-bindkey -s '\eh' $'tmux-sessionizer -s 0\r'
+# Ctrl+X Ctrl+E → edit current command in $VISUAL
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
 
 # --- Completion ---
 autoload -Uz compinit
@@ -92,14 +94,9 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 zstyle ':completion:*' menu select # Select menu for completions
 eval "$(dircolors -b)" # Colors for completion menu
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # Colors for completion menu
-compinit
+[[ -d $XDG_CACHE_HOME/zsh ]] || mkdir -p $XDG_CACHE_HOME/zsh
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 _comp_options+=(globdots)
-zstyle :compinstall filename "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc"
-
-# --- Plugins ---
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh # Auto suggestions when typing commands (ghost text)
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh # Syntax highlighting for commands
-
 
 # --- Aliases ---
 alias vi="nvim"
@@ -119,7 +116,7 @@ if command -v exa >/dev/null 2>&1; then
     alias lt="eza --tree --icons=auto"
 fi
 
-alias cat=bat --paging=never --color=always
+alias cat='bat --paging=never'
 
 # --- FNM ---
 if command -v fnm >/dev/null 2>&1; then
@@ -127,14 +124,9 @@ if command -v fnm >/dev/null 2>&1; then
 fi
 
 
-# --- PNPM ---
-export PNPM_HOME="$HOME/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
-
-
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 
+# --- Plugins ---
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh # Auto suggestions when typing commands (ghost text)
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh # Syntax highlighting for commands (must be sourced last)

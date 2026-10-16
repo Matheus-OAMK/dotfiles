@@ -10,12 +10,18 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 # --- Hyprshot (SCREENSHOTS) ---
 export HYPRSHOT_DIR="$HOME/Pictures/Screenshots"
 
-# Set up fzf key bindings and fuzzy completion
-export FZF_DEFAULT_OPTS="--layout=reverse --border=bold --border=rounded --margin=3% --color=dark"
+# --- FZF ---
+export FZF_DEFAULT_OPTS="--layout=reverse --border=rounded --margin=3% --color=dark"
+
+# --- PNPM ---
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+
+# --- Pi ---
+export PI_CODING_AGENT_DIR="$XDG_CONFIG_HOME/pi"
 
 # --- PATH ---
 typeset -U path PATH
-path=("$HOME/.local/bin" $path)
+path=("$HOME/.local/bin" "$PNPM_HOME/bin" $path)
 export PATH
 
 # DEFAULT APPS

@@ -1,5 +1,3 @@
-.config/nvim/lazy-lock.json
-.zcompdump
 config/tmux/.config/tmux/plugins/
 
 # Matugen-generated runtime theme files
