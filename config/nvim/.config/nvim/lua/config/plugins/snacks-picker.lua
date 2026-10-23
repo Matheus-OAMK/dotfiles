@@ -1,4 +1,5 @@
--- Snacks picker: files, grep, buffers, git, and the rest (replaces fzf-lua).
+-- Snacks picker: buffers, git, LSP, and the rest (replaces fzf-lua).
+-- File finding and live grep live in fff.lua.
 -- Explorer settings stay in snacks.lua; lazy.nvim merges both specs.
 local function map(lhs, fn, desc, mode)
 	return { lhs, fn, mode = mode or "n", desc = desc }
@@ -9,6 +10,10 @@ return {
 	opts = {
 		picker = {
 			show_empty = true, -- open the picker even when there are no results
+			-- Lets <leader>sr resume whichever picker closed last (see fff.lua)
+			on_close = function()
+				vim.g.last_picker = "snacks"
+			end,
 			-- 90% of the screen, like fzf-lua. Only the presets the picker switches between
 			-- (default when wide, vertical below 120 columns), so ivy, select and the explorer keep their size
 			layouts = {
@@ -18,6 +23,8 @@ return {
 			formatters = {
 				file = { filename_first = true },
 			},
+			-- Rank files you open often and recently higher once you start typing
+			matcher = { frecency = true },
 			-- Open selected (or all) results in Trouble with ctrl-t
 			actions = {
 				trouble_open = function(...)
@@ -66,15 +73,6 @@ return {
 		map("<leader>fR", function()
 			Snacks.picker.recent({ filter = { cwd = true } })
 		end, "[F]ind [R]ecent Files (cwd)"),
-		map("<leader>fF", function()
-			Snacks.picker.files()
-		end, "[S]earch [F]iles (cwd)"),
-		map("<leader>ff", function()
-			Snacks.picker.files({ cwd = MyUtils.root.get() })
-		end, "[F]ind [F]iles (root)"),
-		map("<leader>fn", function()
-			Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-		end, "[F]ind [N]eovim Config"),
 
 		-- ***** Search *****
 		map("<leader>sh", function()
@@ -84,7 +82,13 @@ return {
 			Snacks.picker.keymaps()
 		end, "[S]earch [K]eymaps"),
 		map("<leader>sr", function()
-			Snacks.picker.resume()
+			if vim.g.last_picker == "fff" then
+				local fff = require("fff")
+				local open = vim.g.fff_last_mode == "grep" and fff.live_grep or fff.find_files
+				open({ resume = true })
+			else
+				Snacks.picker.resume()
+			end
 		end, "[S]earch [R]esume"),
 		map("<leader>sp", function()
 			Snacks.picker.pickers()
@@ -101,19 +105,6 @@ return {
 		map("<leader>sn", function()
 			Snacks.picker.notifications()
 		end, "[S]earch [N]otifications"),
-
-		map("<leader>sg", function()
-			Snacks.picker.grep({ cwd = MyUtils.root.get() })
-		end, "[S]earch by [G]rep (root)"),
-		map("<leader>sG", function()
-			Snacks.picker.grep()
-		end, "[S]earch by [G]rep (cwd)"),
-		map("<leader>sW", function()
-			Snacks.picker.grep_word()
-		end, "[S]earch Current [W]ord (cwd)", { "n", "x" }),
-		map("<leader>sw", function()
-			Snacks.picker.grep_word({ cwd = MyUtils.root.get() })
-		end, "[S]earch Current [W]ord (root)", { "n", "x" }),
 
 		map("<leader>/", function()
 			Snacks.picker.lines()
