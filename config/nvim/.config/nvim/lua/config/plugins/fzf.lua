@@ -128,7 +128,7 @@ return {
 			map("<leader>sW", fzf.grep_cword, "[S]earch Current [W]ord (cwd)"),
 
 			map("<leader>sw", function()
-				fzf.live_grep({ cwd = MyUtils.root.get() })
+				fzf.grep_cword({ cwd = MyUtils.root.get() })
 			end, "[S]earch Current [W]ord (root)"),
 
 			map("<leader>/", function()
