@@ -46,14 +46,15 @@ return {
 			{
 				"<leader>st",
 				function()
-					Snacks.picker.todo_comments()
+					-- hidden: everything in the dotfiles lives under a `.config` folder
+					Snacks.picker.todo_comments({ hidden = true, follow = true })
 				end,
 				desc = "Todo",
 			},
 			{
 				"<leader>sT",
 				function()
-					Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+					Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" }, hidden = true, follow = true })
 				end,
 				desc = "Todo/Fix/Fixme",
 			},
