@@ -44,7 +44,7 @@ return {
 
 				integrations = {
 					which_key = true,
-					fzf = true,
+					snacks = true,
 				},
 			})
 

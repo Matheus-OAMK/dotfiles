@@ -51,9 +51,8 @@ return {
 				trash = true, -- Use the system trash when deleting files
 			},
 
+			-- Picker keymaps and settings live in snacks-picker.lua
 			picker = {
-				enabled = false,
-				ui_select = false,
 				sources = {
 					explorer = {
 						hidden = true,

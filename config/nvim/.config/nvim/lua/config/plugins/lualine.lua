@@ -30,7 +30,7 @@ return {
 					lualine_y = { "progress" },
 					lualine_z = { "location" },
 				},
-				extensions = { "neo-tree", "lazy", "fzf" },
+				extensions = { "neo-tree", "lazy" },
 			}
 
 			if vim.g.trouble_lualine ~= false then
