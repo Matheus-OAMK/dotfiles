@@ -1,0 +1,132 @@
+{
+  "Bash code block": {
+    "prefix": "bash",
+    "body": ["```bash", "$0", "```"],
+    "description": "Fenced Bash code block"
+  },
+  "Shell code block": {
+    "prefix": "sh",
+    "body": ["```sh", "$0", "```"],
+    "description": "Fenced shell code block"
+  },
+  "Python code block": {
+    "prefix": ["python", "py"],
+    "body": ["```py", "$0", "```"],
+    "description": "Fenced Python code block"
+  },
+  "JavaScript code block": {
+    "prefix": ["javascript", "js"],
+    "body": ["```js", "$0", "```"],
+    "description": "Fenced JavaScript code block"
+  },
+  "TypeScript code block": {
+    "prefix": ["typescript", "ts"],
+    "body": ["```ts", "$0", "```"],
+    "description": "Fenced TypeScript code block"
+  },
+  "JSX code block": {
+    "prefix": "jsx",
+    "body": ["```jsx", "$0", "```"],
+    "description": "Fenced JSX code block"
+  },
+  "TSX code block": {
+    "prefix": "tsx",
+    "body": ["```tsx", "$0", "```"],
+    "description": "Fenced TSX code block"
+  },
+  "Lua code block": {
+    "prefix": "lua",
+    "body": ["```lua", "$0", "```"],
+    "description": "Fenced Lua code block"
+  },
+  "Go code block": {
+    "prefix": "go",
+    "body": ["```go", "$0", "```"],
+    "description": "Fenced Go code block"
+  },
+  "Rust code block": {
+    "prefix": ["rust", "rs"],
+    "body": ["```rs", "$0", "```"],
+    "description": "Fenced Rust code block"
+  },
+  "C code block": {
+    "prefix": "c",
+    "body": ["```c", "$0", "```"],
+    "description": "Fenced C code block"
+  },
+  "C++ code block": {
+    "prefix": "cpp",
+    "body": ["```cpp", "$0", "```"],
+    "description": "Fenced C++ code block"
+  },
+  "C# code block": {
+    "prefix": ["csharp", "cs"],
+    "body": ["```cs", "$0", "```"],
+    "description": "Fenced C# code block"
+  },
+  "Java code block": {
+    "prefix": "java",
+    "body": ["```java", "$0", "```"],
+    "description": "Fenced Java code block"
+  },
+  "Ruby code block": {
+    "prefix": ["ruby", "rb"],
+    "body": ["```rb", "$0", "```"],
+    "description": "Fenced Ruby code block"
+  },
+  "PHP code block": {
+    "prefix": "php",
+    "body": ["```php", "$0", "```"],
+    "description": "Fenced PHP code block"
+  },
+  "HTML code block": {
+    "prefix": "html",
+    "body": ["```html", "$0", "```"],
+    "description": "Fenced HTML code block"
+  },
+  "CSS code block": {
+    "prefix": "css",
+    "body": ["```css", "$0", "```"],
+    "description": "Fenced CSS code block"
+  },
+  "SQL code block": {
+    "prefix": "sql",
+    "body": ["```sql", "$0", "```"],
+    "description": "Fenced SQL code block"
+  },
+  "JSON code block": {
+    "prefix": "json",
+    "body": ["```json", "$0", "```"],
+    "description": "Fenced JSON code block"
+  },
+  "YAML code block": {
+    "prefix": ["yaml", "yml"],
+    "body": ["```yml", "$0", "```"],
+    "description": "Fenced YAML code block"
+  },
+  "TOML code block": {
+    "prefix": "toml",
+    "body": ["```toml", "$0", "```"],
+    "description": "Fenced TOML code block"
+  },
+  "Dockerfile code block": {
+    "prefix": ["dockerfile", "docker"],
+    "body": ["```docker", "$0", "```"],
+    "description": "Fenced Dockerfile code block"
+  },
+  "Diff code block": {
+    "prefix": "diff",
+    "body": ["```diff", "$0", "```"],
+    "description": "Fenced diff code block"
+  },
+  "Plain text code block": {
+    "prefix": "text",
+    "body": ["```text", "$0", "```"],
+    "description": "Fenced plain text code block"
+  },
+  "Generic code block": {
+    "prefix": "code",
+    "body": ["```${1:language}", "$0", "```"],
+    "description": "Fenced code block with editable language"
+  }
+}
