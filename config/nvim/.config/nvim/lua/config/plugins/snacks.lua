@@ -20,6 +20,18 @@ return {
 			dashboard = {
 				enabled = true,
 				preset = {
+					-- Reuse the mapped fff searches, including their directory prompts.
+					pick = function(cmd, opts)
+						local key = ({ files = "<leader>fF", live_grep = "<leader>sG" })[cmd]
+						if cmd == "files" and opts and opts.cwd == vim.fn.stdpath("config") then
+							key = "<leader>fn"
+						end
+						if key then
+							vim.api.nvim_feedkeys(vim.keycode(key), "m", false)
+						else
+							Snacks.picker(cmd, opts)
+						end
+					end,
 					header = [[
                        ▓▓█      ▓▓▓▓            
                       ▓▓▓▓█▓▓▓▓▓█▓▓             

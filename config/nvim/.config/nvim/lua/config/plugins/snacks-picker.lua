@@ -11,15 +11,15 @@ return {
 		picker = {
 			show_empty = true, -- open the picker even when there are no results
 			-- Lets <leader>sr resume whichever picker closed last (see fff.lua)
-			on_close = function()
-				vim.g.last_picker = "snacks"
+			config = function(opts)
+				local on_close = opts.on_close
+				opts.on_close = function(...)
+					vim.g.last_picker = "snacks"
+					if on_close then
+						return on_close(...)
+					end
+				end
 			end,
-			-- 90% of the screen, like fzf-lua. Only the presets the picker switches between
-			-- (default when wide, vertical below 120 columns), so ivy, select and the explorer keep their size
-			layouts = {
-				default = { layout = { width = 0.9, height = 0.9 } },
-				vertical = { layout = { width = 0.9, height = 0.9 } },
-			},
 			formatters = {
 				file = { filename_first = true },
 			},
@@ -83,9 +83,7 @@ return {
 		end, "[S]earch [K]eymaps"),
 		map("<leader>sr", function()
 			if vim.g.last_picker == "fff" then
-				local fff = require("fff")
-				local open = vim.g.fff_last_mode == "grep" and fff.live_grep or fff.find_files
-				open({ resume = true })
+				require("fff").resume()
 			else
 				Snacks.picker.resume()
 			end
