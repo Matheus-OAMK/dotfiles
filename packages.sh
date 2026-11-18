@@ -105,6 +105,7 @@ PACKAGES_UI=(
   noto-fonts-emoji
   nerd-fonts
   ttf-rubik-vf
+  adobe-source-serif-fonts # Source Serif 4 (used in Office docs)
 
   # Screenshare and filepicker
   xdg-desktop-portal-hyprland
