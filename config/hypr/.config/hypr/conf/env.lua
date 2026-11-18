@@ -15,3 +15,7 @@ hl.env("QT_QPA_PLATFORMTHEME", "gtk3")
 
 -- GTK 4 broke blur in some update
 hl.env("GDK_WAYLAND_DISABLE", "ext_background_effect_manager_v1")
+
+-- 0.57 realtime scheduling gets Hyprland SIGKILLed on slow NVIDIA connector probes after resume.
+-- Remove once https://github.com/hyprwm/Hyprland/pull/16737 ships.
+hl.env("HYPRLAND_NO_RT", "1")
