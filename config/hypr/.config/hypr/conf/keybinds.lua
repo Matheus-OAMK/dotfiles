@@ -17,7 +17,7 @@ local function launchMenuUnlessFullscreen()
 		return
 	end
 
-	hl.exec_cmd(vars.menu .. " d")
+	hl.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher toggle")
 end
 
 ----------------
@@ -33,19 +33,22 @@ hl.bind(mainMod .. " + ALT + T", hl.dsp.exec_cmd("kitty-tmux"))
 hl.bind(mainMod .. " + M", hyprws.toggle("music"))
 hl.bind(mainMod .. " + R", hyprws.toggle("email"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(vars.fileManager))
+hl.bind(mainMod .. " + ALT + E", hl.dsp.exec_cmd(vars.fileManager .. ' --new-window "$(kitty-cwd)"'))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(vars.browser))
 hl.bind(mainMod .. " + D", hyprws.toggle("communication"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo()) -- dwindle
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("~/.config/hypr/scripts/launch_wlogout.sh"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call logout toggle"))
 hl.bind("CTRL + ALT + DELETE", hyprws.toggle("sysmon"))
 
 -- Menu launches
-hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd(vars.menu .. " w"))
+hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher windows"))
 hl.bind("SUPER + SUPER_L", launchMenuUnlessFullscreen, { release = true })
-hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(vars.menu .. " f"))
-hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd(vars.emojiMenu .. " --style list")) -- list | grid
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(vars.cliphistMenu .. " --copy"))
-hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(vars.cliphistMenu .. ""))
+hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher emoji"))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher clipboard"))
+hl.bind(
+	mainMod .. " + SHIFT + V",
+	hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher clipboardOptions")
+)
 
 -- Utilities
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a")) -- Colour picker

@@ -124,22 +124,16 @@ PACKAGES_UI=(
 
   sddm              # Login
   sddm-silent-theme # SDDM theme
-  rofi              # App launcher
-  waybar            # A bar
   hyprpicker        # Colour picker
-  awww              # Wallpaper daemon
-  matugen-bin       # Color extractor for wallpaper
   imagemagick       # CLI util for manupulating images
   pavucontrol       # Volume controlcenter
   networkmanager    # For network and nmtui
-  wlogout           # Logout screen
   nwg-look          # To configure gtk
 
   # Icons theme
   tela-circle-icon-theme-all
   papirus-icon-theme
 
-  swaync    # notification UI
   libnotify # CLI for notifications
 
   # Keyring stuff

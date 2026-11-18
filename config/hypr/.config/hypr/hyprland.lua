@@ -1,6 +1,6 @@
 -- Config
 
-require("colors")
+pcall(require, "colors")
 require("conf.env")
 require("conf.execs")
 require("conf.decoration")
@@ -19,6 +19,8 @@ hl.config({
 	misc = {
 		force_default_wallpaper = 0, -- Set to 0 or 1 to disable the anime mascot wallpapers
 		disable_hyprland_logo = true, -- If true disables the random hyprland logo / anime girl background. :(
+		allow_session_lock_restore = true, -- Lets a restarted Quickshell take back the lock if it crashed while locked
+		session_lock_xray = true, -- Shows the desktop under the Quickshell lock until its screenshot is ready, so locking doesn't flash
 	},
 })
 
@@ -79,19 +81,6 @@ hl.window_rule({
 	},
 	move = "20 monitor_h-120",
 	float = true,
-})
-
--- TAKEN FROM HYDE
---  Add blur to wlogout
-hl.layer_rule({
-	match = { namespace = "logout_dialog" },
-	blur = true,
-})
-
-hl.layer_rule({
-	match = { namespace = "rofi" },
-	blur = true,
-	ignore_alpha = 0,
 })
 
 -- Float and center nwg-look
@@ -178,12 +167,29 @@ hl.layer_rule({
 	blur = true,
 })
 
--- Quickshell notifications
+-- Quickshell panels
 hl.layer_rule({
-	name = "quickshell_notifications_ignore_alpha",
+	name = "qs_blur",
 	match = {
-		namespace = "^quickshell-(notifications|notification-center)$",
+		namespace = "^qs-(notifications|notification-center|launcher|ai-usage|weather|calendar|bluetooth|bar)$",
 	},
 	ignore_alpha = 0.5,
 	blur = true,
+	blur_popups = true,
+})
+
+hl.window_rule({
+	match = {
+		class = "org\\.quickshell",
+		title = "Web App Installer",
+	},
+	float = true,
+	center = true,
+})
+
+-- Quickshell logout menu
+hl.layer_rule({
+	match = { namespace = "^qs-logout$" },
+	blur = true,
+	no_anim = true,
 })

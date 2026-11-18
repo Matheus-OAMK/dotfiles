@@ -8,7 +8,7 @@ hl.config({
 
 		-- https://wiki.hypr.land/Configuring/Basics/Variables/#variable-types for info about colors
 		col = {
-			active_border = { colors = { Colors.primary, Colors.on_primary }, angle = 45 },
+			active_border = Colors and { colors = { Colors.accent, Colors.on_accent }, angle = 45 } or nil,
 			inactive_border = "rgba(595959aa)",
 		},
 

@@ -4,9 +4,6 @@ return {
 	terminal = "kitty",
 	fileManager = "nautilus",
 	browser = "brave",
-	menu = "~/.config/rofi/rofilaunch.sh",
-	emojiMenu = "~/.config/rofi/emoji-picker.sh",
-	cliphistMenu = "~/.config/rofi/cliphist.sh",
 
 	-- Special workspace toggles
 	toggles = {

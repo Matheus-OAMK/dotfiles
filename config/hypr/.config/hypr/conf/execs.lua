@@ -12,11 +12,11 @@ hl.on("hyprland.start", function()
 	-- TMUX
 	hl.exec_cmd("tmux new-session -d")
 
-	-- Waybar
-	hl.exec_cmd("waybar")
+	-- -- Waybar
+	-- hl.exec_cmd("waybar")
 
-	-- Wallpaper daemon
-	hl.exec_cmd("awww-daemon")
+	-- Quickshell bar
+	hl.exec_cmd("quickshell -p /home/matheus/repos/projects/playground -d")
 
 	-- Voice dictation
 	hl.exec_cmd("voxtype daemon")
@@ -26,4 +26,7 @@ hl.on("hyprland.start", function()
 
 	-- RGB
 	hl.exec_cmd("openrgb -p white")
+
+	-- HyprSunset
+	hl.exec_cmd("hyprsunset")
 end)
