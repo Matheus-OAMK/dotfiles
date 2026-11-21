@@ -1,78 +1,114 @@
 return {
-	-- NOTE: dracula
-	{
-		"Mofiqul/dracula.nvim",
-		config = function()
-			require("dracula").setup({
-				transparent_bg = false,
-				italic_comment = true,
-			})
-
-			-- HACK: set this on the color you want to be persistent
-			-- when quit and reopening nvim
-
-			-- vim.opt.winborder = "rounded"
-			-- vim.cmd("colorscheme dracula-soft")
-			-- OR
-			-- vim.opt.winborder = "rounded"
-			-- vim.cmd("colorscheme dracula")
-		end,
-	},
-
-	-- NOTE: catppuccin
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		priority = 1000,
-
-		config = function()
-			require("catppuccin").setup({
-				flavour = "mocha", -- latte, frappe, macchiato, auto
-				transparent_background = true,
-				lsp_styles = {
-					underlines = {
-						errors = { "undercurl" },
-						hints = { "undercurl" },
-						warnings = { "undercurl" },
-						information = { "undercurl" },
-					},
+		lazy = true,
+		opts = {
+			transparent_background = true,
+			lsp_styles = {
+				underlines = {
+					errors = { "undercurl" },
+					hints = { "undercurl" },
+					warnings = { "undercurl" },
+					information = { "undercurl" },
 				},
-				float = {
-					transparent = true,
-					solid = false,
-				},
-
-				integrations = {
-					which_key = true,
-					snacks = true,
-				},
-			})
-
-			-- HACK: set this on the color you want to be persistent
-			-- when quit and reopening nvim
-			vim.opt.winborder = "rounded"
-			vim.cmd("colorscheme catppuccin")
-		end,
+			},
+			float = {
+				transparent = true,
+				solid = false,
+			},
+			integrations = {
+				which_key = true,
+				snacks = true,
+			},
+		},
 	},
-
-	-- NOTE: tokyonight
 	{
 		"folke/tokyonight.nvim",
-		priority = 1000,
+		lazy = true,
 		opts = {
-			style = "night", -- "storm", "moon", "night", "day"
 			transparent = true,
 			styles = {
 				sidebars = "transparent",
 				floats = "transparent",
 			},
 		},
-		config = function(_, opts)
-			require("tokyonight").setup(opts)
-			-- HACK: set this on the color you want to be persistent
-			-- when quit and reopening nvim
-			-- vim.opt.winborder = "rounded"
-			-- vim.cmd("colorscheme tokyonight")
+	},
+	{
+		"Mofiqul/dracula.nvim",
+		lazy = true,
+		opts = {
+			transparent_bg = true,
+			italic_comment = true,
+		},
+	},
+	{
+		"Shatur/neovim-ayu",
+		lazy = true,
+	},
+	{
+		"sainnhe/everforest",
+		lazy = true,
+		init = function()
+			vim.g.everforest_transparent_background = 2
 		end,
+	},
+	{
+		"ellisonleao/gruvbox.nvim",
+		lazy = true,
+		opts = {
+			transparent_mode = true,
+		},
+	},
+	{
+		"sainnhe/gruvbox-material",
+		lazy = true,
+		init = function()
+			vim.g.gruvbox_material_transparent_background = 2
+		end,
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = true,
+		opts = {
+			transparent = true,
+		},
+	},
+	{
+		"gbprod/nord.nvim",
+		lazy = true,
+		opts = {
+			transparent = true,
+		},
+	},
+	{
+		"loctvl842/monokai-pro.nvim",
+		lazy = true,
+		opts = {
+			transparent_background = true,
+		},
+	},
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		lazy = true,
+		opts = {
+			styles = {
+				transparency = true,
+			},
+		},
+	},
+	{
+		"maxmx03/solarized.nvim",
+		lazy = true,
+		opts = {
+			transparent = {
+				enabled = true,
+			},
+		},
+	},
+	{
+		"nvim-mini/mini.base16",
+		lazy = true,
 	},
 }
