@@ -1,8 +1,8 @@
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
 hl.config({
 	decoration = {
-		rounding = 0,
-		rounding_power = 3,
+		rounding = 8,
+		rounding_power = 4,
 
 		shadow = {
 			enabled = true,
