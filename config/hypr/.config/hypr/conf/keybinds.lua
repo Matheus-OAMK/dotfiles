@@ -17,7 +17,7 @@ local function launchMenuUnlessFullscreen()
 		return
 	end
 
-	hl.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher toggle")
+	hl.dispatch(hl.dsp.global("fiddlershell:launcher"))
 end
 
 ----------------
@@ -37,18 +37,16 @@ hl.bind(mainMod .. " + ALT + E", hl.dsp.exec_cmd(vars.fileManager .. ' --new-win
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(vars.browser))
 hl.bind(mainMod .. " + D", hyprws.toggle("communication"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo()) -- dwindle
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call logout toggle"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.global("fiddlershell:logout"))
 hl.bind("CTRL + ALT + DELETE", hyprws.toggle("sysmon"))
 
 -- Menu launches
-hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher windows"))
+hl.bind(mainMod .. " + TAB", hl.dsp.global("fiddlershell:launcher-windows"))
 hl.bind("SUPER + SUPER_L", launchMenuUnlessFullscreen, { release = true })
-hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher emoji"))
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher clipboard"))
-hl.bind(
-	mainMod .. " + SHIFT + V",
-	hl.dsp.exec_cmd("qs -p /home/matheus/repos/projects/playground ipc call launcher clipboardOptions")
-)
+hl.bind(mainMod .. " + COMMA", hl.dsp.global("fiddlershell:launcher-emoji"))
+hl.bind(mainMod .. " + V", hl.dsp.global("fiddlershell:launcher-clipboard"))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.global("fiddlershell:launcher-clipboard-options"))
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.global("fiddlershell:wallpaper-picker"))
 
 -- Utilities
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a")) -- Colour picker

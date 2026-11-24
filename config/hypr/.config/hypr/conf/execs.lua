@@ -16,7 +16,7 @@ hl.on("hyprland.start", function()
 	-- hl.exec_cmd("waybar")
 
 	-- Quickshell bar
-	hl.exec_cmd("quickshell -p /home/matheus/repos/projects/playground -d")
+	hl.exec_cmd("quickshell -c fiddlershell -d")
 
 	-- Voice dictation
 	hl.exec_cmd("voxtype daemon")
