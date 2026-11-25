@@ -1,6 +1,7 @@
 -- Config
 
-pcall(require, "colors")
+local state = os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state")
+pcall(require, state .. "/theme/current/hyprland")
 require("conf.env")
 require("conf.execs")
 require("conf.decoration")
