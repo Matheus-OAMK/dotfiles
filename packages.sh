@@ -92,6 +92,7 @@ install_group() {
 
 PACKAGES_UI=(
   hyprland
+  quickshell # Desktop shell (fiddlershell)
 
   kitty     # Terminal
   tmux      # Terminal multiplexer
@@ -105,7 +106,8 @@ PACKAGES_UI=(
   noto-fonts-emoji
   nerd-fonts
   ttf-rubik-vf
-  adobe-source-serif-fonts # Source Serif 4 (used in Office docs)
+  adobe-source-serif-fonts      # Source Serif 4 (used in Office docs)
+  ttf-material-symbols-variable # Icon font used by the shell
 
   # Screenshare and filepicker
   xdg-desktop-portal-hyprland
@@ -122,13 +124,18 @@ PACKAGES_UI=(
   wl-clipboard    # clipboard
   cliphist        # Clipboard history
   wl-clip-persist # To fix clipboard when apps die
+  wtype           # Type text into windows (launcher)
+  libqalculate    # qalc calculator (launcher)
+  voxtype-bin     # Voice dictation
 
   sddm              # Login
   sddm-silent-theme # SDDM theme
   hyprpicker        # Colour picker
+  hyprsunset        # Night light and gamma
   imagemagick       # CLI util for manupulating images
   pavucontrol       # Volume controlcenter
   networkmanager    # For network and nmtui
+  bluez-utils       # bluetoothctl (Bluetooth pairing)
   nwg-look          # To configure gtk
 
   # Icons theme
@@ -195,6 +202,9 @@ PACKAGES_DEV=(
   github-cli # Github cli
   rsync
   zoxide # cd alternative with ranking
+
+  stow   # Symlink dotfiles
+  rustup # Rust toolchain (builds the shell helpers)
 
   fnm # Node version manager
   uv  # Python version manager / packages/ all batteries included
