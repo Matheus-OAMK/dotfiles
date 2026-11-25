@@ -1,6 +1,12 @@
 # --- Greeter ---
 if [[ $- == *i* ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-  fastfetch --config ~/.config/fastfetch/config-minimal.jsonc
+  () {
+    local colors="${XDG_STATE_HOME:-$HOME/.local/state}/theme/current/colors.json" accent
+    local -a args
+    [[ -r $colors ]] && accent=$(jq -r '.accent // empty' "$colors" 2>/dev/null)
+    [[ -n $accent ]] && args=(--logo-color-1 "$accent" --color-keys "$accent")
+    fastfetch --config ~/.config/fastfetch/config.jsonc "${args[@]}"
+  }
 fi
 
 # --- Options ---

@@ -178,8 +178,8 @@ enabled = false
 [meeting.audio]
 source = "mic"
 
-[parakeet]
-streaming = false
+[history]
+enabled = true
 
 # [text]
 # Text processing options (word replacements, spoken punctuation)
