@@ -12,10 +12,7 @@ hl.on("hyprland.start", function()
 	-- TMUX
 	hl.exec_cmd("tmux new-session -d")
 
-	-- -- Waybar
-	-- hl.exec_cmd("waybar")
-
-	-- Quickshell bar
+	-- Desktop shell
 	hl.exec_cmd("quickshell -c fiddlershell -d")
 
 	-- Voice dictation

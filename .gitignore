@@ -1,8 +1,4 @@
 config/tmux/.config/tmux/plugins/
 
-# Matugen-generated runtime theme files
+# Written by the fiddlershell theme CLI
 config/hypr/.config/hypr/colors.lua
-config/rofi/.config/rofi/theme.rasi
-config/swaync/.config/swaync/colors.css
-config/waybar/.config/waybar/colors.css
-config/wlogout/.config/wlogout/colors.css

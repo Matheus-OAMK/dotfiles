@@ -8,14 +8,13 @@ PACKAGES := $(sort $(notdir $(patsubst %/,%,$(wildcard $(CONFIG_STOW_DIR)/*/))))
 NO_FOLD_PACKAGES := $(filter dropbox,$(PACKAGES))
 FOLD_PACKAGES := $(filter-out dropbox,$(PACKAGES))
 ASSETS_TARGET := $(HOME)/Pictures
-LOCAL_TARGET := $(HOME)/.local
 
-.PHONY: help install uninstall check-all list-config config unconfig reconfig check-config assets unassets check-assets local theme-init unlocal check-local
+.PHONY: help install uninstall check-all list-config config unconfig reconfig check-config assets unassets check-assets
 
 help:
 	@printf '%s\n' \
 		'Usage:' \
-		'  make install                      Install configs, assets, and local files' \
+		'  make install                      Install configs and assets' \
 		'  make uninstall                    Remove all managed links' \
 		'  make check-all                    Preview all managed links' \
 		'' \
@@ -25,20 +24,16 @@ help:
 		'  make reconfig                     Reinstall config package links' \
 		'  make check-config                 Preview config package links' \
 		'  make list-config                  List config packages' \
-		'  make config PACKAGES="zsh waybar"  Install selected config packages' \
+		'  make config PACKAGES="zsh kitty"  Install selected config packages' \
 		'  make assets                       Link assets into ~/Pictures' \
 		'  make unassets                     Remove managed asset links' \
-		'  make check-assets                 Preview asset links' \
-		'  make local                        Link files into ~/.local' \
-		'  make theme-init                   Install missing base theme files' \
-		'  make unlocal                      Remove managed local links' \
-		'  make check-local                  Preview local links'
+		'  make check-assets                 Preview asset links'
 
-install: config assets local theme-init
+install: config assets
 
-uninstall: unconfig unassets unlocal
+uninstall: unconfig unassets
 
-check-all: check-config check-assets check-local
+check-all: check-config check-assets
 
 list-config:
 	@printf '%s\n' $(PACKAGES)
@@ -70,16 +65,3 @@ check-assets:
 	@mkdir -p "$(ASSETS_TARGET)"
 	$(STOW) --dir="$(ROOT_STOW_DIR)" --target="$(ASSETS_TARGET)" --simulate --no-folding --verbose=1 assets
 
-local:
-	@mkdir -p "$(LOCAL_TARGET)"
-	$(STOW) --dir="$(ROOT_STOW_DIR)" --target="$(LOCAL_TARGET)" --no-folding --verbose=1 local
-
-theme-init: config
-	@bash "$(CURDIR)/local/bin/matugen-theme-init"
-
-unlocal:
-	$(STOW) --dir="$(ROOT_STOW_DIR)" --target="$(LOCAL_TARGET)" --delete --no-folding --verbose=1 local
-
-check-local:
-	@mkdir -p "$(LOCAL_TARGET)"
-	$(STOW) --dir="$(ROOT_STOW_DIR)" --target="$(LOCAL_TARGET)" --simulate --no-folding --verbose=1 local
