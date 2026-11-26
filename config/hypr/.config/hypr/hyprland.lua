@@ -184,3 +184,9 @@ hl.layer_rule({
 	blur = true,
 	no_anim = true,
 })
+
+-- Quickshell launcher
+hl.layer_rule({
+	match = { namespace = "^qs-launcher$" },
+	animation = "popin 25%",
+})
