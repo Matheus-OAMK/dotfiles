@@ -162,7 +162,7 @@ hl.window_rule({
 hl.layer_rule({
 	name = "qs_blur",
 	match = {
-		namespace = "^qs-(notifications|notification-center|launcher|ai-usage|weather|calendar|bluetooth|bar)$",
+		namespace = "^qs-(notifications|notification-center|launcher|ai-usage|weather|calendar|bluetooth|battery|bar)$",
 	},
 	ignore_alpha = 0.5,
 	blur = true,
